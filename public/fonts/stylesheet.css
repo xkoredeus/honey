@@ -1,0 +1,50 @@
+@font-face {
+    font-family: 'Oakes-Regular';
+    src: url('OakesGrotesk-Regular.woff2') format('woff2'),
+        url('OakesGrotesk-Regular.woff') format('woff'),
+        url('OakesGrotesk-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Oakes-SemiBold';
+    src: url('OakesGrotesk-SemiBold.woff2') format('woff2'),
+        url('OakesGrotesk-SemiBold.woff') format('woff'),
+        url('OakesGrotesk-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Oakes-Medium';
+    src: url('OakesGrotesk-Medium.woff2') format('woff2'),
+        url('OakesGrotesk-Medium.woff') format('woff'),
+        url('OakesGrotesk-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Oakes-Light';
+    src: url('OakesGrotesk-Light.woff2') format('woff2'),
+        url('OakesGrotesk-Light.woff') format('woff'),
+        url('OakesGrotesk-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Oakes-Bold';
+    src: url('OakesGrotesk-Bold.woff2') format('woff2'),
+        url('OakesGrotesk-Bold.woff') format('woff'),
+        url('OakesGrotesk-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+

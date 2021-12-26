@@ -6,7 +6,10 @@ const themeBase = {
     palette: {
         type: 'light',
         text: {
-            primary: `#2A2A2A`,
+            primary: '#2A2A2A',
+            gray: '#F3F3F3',
+            white: '#ffffff',
+            lightGray: '#AEAEAE',
         },
         primary: {
             main: '#D2595D',

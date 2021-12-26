@@ -7,6 +7,14 @@ a {
     box-sizing: border-box;
 }
 
-.red {
+.color-red {
     color: #D2595D;
+}
+
+.color-white {
+    color: #fff;
+}
+
+.color-light-gray {
+    color: #AEAEAE;
 }

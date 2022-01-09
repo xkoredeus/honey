@@ -20,6 +20,12 @@ const useStyles = makeStyles({
     alignItems: 'center',
     paddingTop: '24px',
   },
+  headerLogo: {
+    position: 'absolute',
+    left: '50%',
+    top: '50%',
+    transform: 'translate(-50%, -50%)',
+  },
   nav: {
     display: 'flex',
   },
@@ -76,7 +82,9 @@ export const Header = () => {
             </span>
 
           </nav>
-          <Logo />
+          <div className={cls.headerLogo}>
+            <Logo />
+          </div>
           <Button
               variant='contained'
               color='primary'

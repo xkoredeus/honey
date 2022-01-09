@@ -14,9 +14,10 @@ const themeBase = {
         primary: {
             main: '#D2595D',
             gray: '#F3F3F3',
+            darkGray: '#2B2B2B',
         },
         secondary: {
-            main: '#19857b',
+            main: '#2A2A2A',
         },
         error: {
             main: red.A400,
@@ -30,43 +31,20 @@ const themeBase = {
 // Create a theme instance.
 const theme = createTheme({
 
-    // breakpoints: {
-    //     values: {
-    //         xs: 0,
-    //         sm: 600,
-    //         md: 960,
-    //         lg: 1440,
-    //         xl: 1920,
-    //     },
-    // },
+    breakpoints: {
+        values: {
+            xs: 0,
+            sm: 600,
+            md: 960,
+            lg: 1240,
+            xl: 1466,
+        },
+    },
 
-    shadows: [
-        `none`,
-        `none`,
-        `none`,
-        `none`,
-        `none`,
-        `none`,
-        `none`,
-        `none`,
-        `none`,
-        `none`,
-        `none`,
-        `none`,
-        `none`,
-        `none`,
-        `none`,
-        `none`,
-        `none`,
-        `none`,
-        `none`,
-        `none`,
-        `none`,
-        `none`,
-        `none`,
-        `0px 16px 48px rgba(255, 184, 0, 0.4)`,
-        `0px 4px 60px rgba(0, 0, 0, 0.08)`,
-    ],
+    // shadows: [
+    //     `0px 16px 48px rgba(255, 184, 0, 0.4)`,
+    //     `0px 4px 60px rgba(0, 0, 0, 0.08)`,
+    // ],
 
     shape: {
         // borderRadius: 40,
@@ -84,17 +62,26 @@ const theme = createTheme({
             },
         },
 
+        MuiInput: {
+            colorSecondary: {
+                fontSize: '1.125rem',
+            }
+        },
+
         MuiButton: {
             contained: {
                 textTransform: 'none',
-                fontWeight: 700,
+                fontSize: '1rem',
+                fontFamily: 'Oakes-Medium',
                 borderRadius: '10px',
+                boxShadow: 'unset',
             },
             containedPrimary: {
-                fontWeight: 500,
+                fontFamily: 'Oakes-Medium',
                 textTransform: 'none',
                 borderRadius: '10px',
-                padding: '.6rem 1.2rem'
+                padding: '.6rem 1.2rem',
+                boxShadow: 'unset',
             },
             sizeLarge: {
                 fontSize: `1.15rem`,
@@ -103,23 +90,24 @@ const theme = createTheme({
             outlined: {
                 textTransform: 'none',
                 borderRadius: '10px',
+                boxShadow: 'unset',
             },
             outlinedPrimary: {
-                fontWeight: 700,
+                fontFamily: 'Oakes-Medium',
                 textTransform: 'none',
                 borderWidth: '2px',
                 color: themeBase.palette.text.primary,
                 borderRadius: '10px',
+                boxShadow: 'unset',
                 '&:hover': {
                     borderWidth: '2px',
                 },
             },
             containedSecondary: {
-                background: 'linear-gradient(90deg, #2D0AF5 0%, #5398F8 100%)',
-                boxShadow: '0 24px 60px rgba(65, 82, 247, 0.32)',
-                '&$disabled': {
-                    color: '#b0b0b0',
-                },
+                fontSize: '1rem',
+                fontFamily: 'Oakes-Medium',
+                padding: '.6rem 1.2rem',
+                boxShadow: 'unset',
             },
         },
         MuiDialog: {
@@ -136,23 +124,25 @@ const theme = createTheme({
             root: {
                 paddingLeft: '15px',
                 paddingRight: '15px',
-                maxWidth: '1600px',
             },
         },
     },
     ...themeBase,
 })
 
-// theme.overrides.MuiContainer.root = {
-//     [theme.breakpoints.down('xs')]: {
-//         paddingLeft: '24px',
-//         paddingRight: '24px',
-//     },
-// }
+theme.overrides.MuiContainer.root = {
+    [theme.breakpoints.up(1280)]: {
+        maxWidth: '1600px !important'
+    },
+    [theme.breakpoints.down(1279)]: {
+        maxWidth: '1279px'
+    },
+}
 
 theme.typography.h1 = {
+    fontFamily: 'Oakes-Bold',
     fontWeight: 'bold',
-    fontSize: '5rem',
+    fontSize: '5.2rem',
     lineHeight: 1.15,
     marginBottom: '2rem',
     [theme.breakpoints.down('lg')]: {
@@ -167,7 +157,7 @@ theme.typography.h1 = {
 
 
 theme.typography.h2 = {
-    fontWeight: 700,
+    fontFamily: 'Oakes-Bold',
     fontSize: '3.25rem',
     lineHeight: 1.15,
     marginBottom: '2.25rem',
@@ -183,12 +173,37 @@ theme.typography.h2 = {
 
 theme.typography.h3 = {
     fontWeight: 700,
-    fontSize: '2.75rem',
+    fontSize: '2.5rem',
     lineHeight: 1.15,
     marginBottom: '1.5rem',
-
     [theme.breakpoints.down('lg')]: {
-        fontSize: '1.4286rem',
+        fontSize: '1.3rem',
+    },
+}
+
+theme.typography.h4 = {
+    fontFamily: 'Oakes-Bold',
+    fontWeight: 600,
+    fontSize: '1.875rem',
+    lineHeight: 1.15,
+    marginBottom: '1.5rem',
+    [theme.breakpoints.down('lg')]: {
+        fontSize: '1.2rem',
+    },
+    [theme.breakpoints.down(1280)]: {
+        fontSize: '1.1rem',
+    },
+}
+
+theme.typography.h5 = {
+    fontSize: '1.4rem',
+    lineHeight: 1.15,
+    marginBottom: '1.5rem',
+    [theme.breakpoints.down('lg')]: {
+        fontSize: '1.2rem',
+    },
+    [theme.breakpoints.down(1280)]: {
+        fontSize: '1.1rem',
     },
 }
 

@@ -1,8 +1,9 @@
-import { Header } from "/components/shared/Header";
 import {makeStyles} from "@material-ui/core";
+import { Header, Footer } from "/components/shared";
 
 const useStyles = makeStyles({
   main: {
+    overflow: 'hidden',
   }
 })
 
@@ -14,6 +15,7 @@ export const Layout = ({ children }) => {
         <main className={cls.main}>
           {children}
         </main>
+        <Footer />
       </>
   )
 }

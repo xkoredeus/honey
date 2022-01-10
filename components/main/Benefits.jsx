@@ -34,6 +34,9 @@ const useStyles = makeStyles({
       backgroundColor: theme.palette.primary.main,
       width: 'calc(100% + 2600px)',
       height: '100%',
+      [theme.breakpoints.down('md')]: {
+        display: 'none',
+      },
     },
   },
   benefitsStroked: {
@@ -44,6 +47,15 @@ const useStyles = makeStyles({
       top: '50%',
       left: '-2.8rem',
       transform: 'translateY(-50%)',
+
+      [theme.breakpoints.down(1899)]: {
+        left: '-1.7rem',
+        width: '64px',
+        height: '391px',
+      },
+      [theme.breakpoints.down(1700)]: {
+        display: 'none',
+      },
     }
   },
   benefitsPicture: {
@@ -71,8 +83,8 @@ const useStyles = makeStyles({
     [theme.breakpoints.down(1600)]: {
       paddingLeft: '2.6rem',
     },
-    [theme.breakpoints.down(1280)]: {
-      paddingLeft: '1.5rem',
+    [theme.breakpoints.down('md')]: {
+      paddingLeft: 0,
     },
   },
   benefitsCard: {
@@ -107,7 +119,13 @@ const useStyles = makeStyles({
       '& span': {
         transform: 'translateX(0.7rem)',
       }
-    }
+    },
+
+    [theme.breakpoints.down('sm')]: {
+      height: 390,
+      paddingLeft: 0,
+      paddingTop: '1.5rem',
+    },
   },
   benefitsPoint: {
     fontSize: '1.125rem',
@@ -148,7 +166,7 @@ export const Benefits = () => {
       <section className={cls.benefits}>
         <Container>
           <Grid container>
-            <Grid item lg={3}>
+            <Grid item md={false} lg={3}>
               <Section classes={cls.benefitsTitleWrapper} small>
                 <div className={cls.benefitsStroked}>
                   <BenefitsStroked />
@@ -163,7 +181,7 @@ export const Benefits = () => {
                 </div>
               </Section>
             </Grid>
-            <Grid item lg={9}>
+            <Grid item xs={12} lg={9}>
               <Section small classes={cls.benefitsCardWrapper}>
                 <div className={cls.benefitsTitle}>
                   <Typography variant={'h2'}>
@@ -171,7 +189,7 @@ export const Benefits = () => {
                   </Typography>
                 </div>
                 <Grid container>
-                  <Grid item lg={7}>
+                  <Grid item xs={12} sm={7} lg={7}>
                     <Swiper
                         modules={[Thumbs, EffectCreative, Autoplay]}
                         thumbs={{ swiper: thumbsSwiper }}
@@ -296,7 +314,7 @@ export const Benefits = () => {
                     </Swiper>
                   </Grid>
                   <Grid item xl={1} xs={false}/>
-                  <Grid item lg={5} xl={4}>
+                  <Grid item xs={12} sm={5} lg={5} xl={4}>
                     <Swiper
                         modules={[Thumbs]}
                         watchSlidesProgress

@@ -23,6 +23,10 @@ const useStyles = makeStyles({
     height: '100vh',
     minHeight: '800px',
     overflow: 'hidden',
+    [theme.breakpoints.down('md')]: {
+      height: 'auto',
+      minHeight: 'auto',
+    },
   },
   mainScreenContainer: {
     height: '100%',
@@ -34,6 +38,18 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     alignItems: 'flex-start',
     paddingLeft: '9rem',
+
+    [theme.breakpoints.down(1700)]: {
+      paddingLeft: '5rem',
+    },
+
+    [theme.breakpoints.down('sm')]: {
+      paddingLeft: 0,
+      paddingTop: '3rem',
+      paddingBottom: '3rem',
+      width: '100%',
+    },
+
     '&::before': {
       content: '""',
       position: 'absolute',
@@ -42,6 +58,12 @@ const useStyles = makeStyles({
       backgroundColor: theme.palette.primary.darkGray,
       width: 'calc(100% + 2600px)',
       height: 'calc(100% + 800px)',
+
+      [theme.breakpoints.down('sm')]: {
+        height: '100%',
+        left: '-50px',
+        width: 'calc(100% + 200px)',
+      },
     }
   },
   mainScreenInfoIn: {
@@ -51,18 +73,99 @@ const useStyles = makeStyles({
     color: "#fff",
   },
   mainScreenSlider: {
-    paddingTop: '100px',
-    paddingLeft: '65px',
     height: '100%',
-    display: 'flex',
-    alignItems: 'flex-end',
+    // display: 'flex',
+    // alignItems: 'flex-end',
   },
   mainScreenItem: {
-    display: 'flex',
+    position: 'relative',
+    paddingTop: '100px',
+    paddingLeft: '65px',
+    minHeight: 'calc(100vh - 80px)',
+    [theme.breakpoints.down('md')]: {
+      minHeight: 600,
+      paddingLeft: '45px',
+      paddingTop: '30px',
+    },
+    [theme.breakpoints.down('sm')]: {
+      minHeight: 'auto',
+      paddingTop: 10,
+      paddingLeft: 0,
+      display: 'flex',
+      alignItems: 'flex-end',
+      justifyContent: 'center',
+    },
   },
   mainScreenPicture: {
-    maxWidth: '890px !important',
-    height: 'auto !important',
+    objectPosition: 'bottom right',
+
+    [theme.breakpoints.down('md')]: {
+      objectPosition: 'bottom center',
+    },
+  },
+  mainScreenPictureWrapper: {
+    position: 'relative',
+    width: 731,
+    height: 871,
+
+    [theme.breakpoints.down('lg')]: {
+      width: 591,
+      height: 681,
+    },
+
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      height: 442,
+    },
+
+    [theme.breakpoints.down(495)]: {
+      width: '60%',
+      height: 342,
+    },
+    [theme.breakpoints.down(420)]: {
+      height: 281,
+    },
+
+    '&::before': {
+      content: '""',
+      position: 'absolute',
+      left: '50%',
+      top: '50%',
+      width: '90%',
+      height: '100%',
+      borderRadius: 40,
+      boxShadow: '16px 15px 18px 11px #00000052',
+      transform: 'translate(-50%, -50%)',
+
+      [theme.breakpoints.down('sm')]: {
+        display: 'none',
+      },
+    }
+  },
+  mainScreenProgress: {
+    position: 'absolute',
+    content: '""',
+    left: 0,
+    top: '50%',
+    transform: 'translateY(-50%)',
+    width: 4,
+    height: '50%',
+
+    [theme.breakpoints.down('md')]: {
+      objectPosition: 'bottom center',
+    },
+
+    '&::before, &::after': {
+      position: 'absolute',
+      content: '""',
+      left: 0,
+      top: 0,
+      width: 4,
+    },
+    '&::before': {
+      height: '100%',
+      backgroundColor: '#D1D1D1',
+    },
   },
   mainScreenStroked: {
     '& svg': {
@@ -71,10 +174,18 @@ const useStyles = makeStyles({
       height: '165px',
       left: '1rem',
       top: '140px',
+      [theme.breakpoints.down(1899)]: {
+        width: 320,
+        height: 105,
+      },
+      [theme.breakpoints.down('sm')]: {
+        display: 'none',
+      },
     }
   },
   mainScreenSliderIn: {
     position: 'relative',
+    height: '100%',
     '& .swiper-pagination': {
       width: 291,
       height: 95,
@@ -85,20 +196,44 @@ const useStyles = makeStyles({
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
+
+      [theme.breakpoints.down('sm')]: {
+        width: 150,
+        height: 40,
+        left: '50%',
+        right: 'auto',
+        transform: 'translateX(-50%)',
+      },
     },
     '& .swiper-pagination-bullet': {
-      width: 55,
+      width: 51,
       height: 4,
       borderRadius: 0,
       backgroundColor: '#D1D1D1',
       transition: 'all .5s ease',
       opacity: 1,
       margin: 0,
-      transform: 'scaleX(.8)',
+
+      [theme.breakpoints.down('sm')]: {
+        width: 15,
+        height: 2,
+      },
     },
     '& .swiper-pagination-bullet-active': {
-      transform: 'scaleX(1.2)',
+      width: 69,
       backgroundColor: theme.palette.primary.main,
+
+      [theme.breakpoints.down('sm')]: {
+        width: '30px !important',
+      }
+    }
+  },
+  mainScreenItemSlide: {
+    '&.swiper-slide-active $mainScreenProgress': {
+      '&::after': {
+        animation: 'progressbar 6s linear',
+        backgroundColor: theme.palette.primary.main,
+      }
     }
   },
   height: {
@@ -112,7 +247,7 @@ export const MainScreen = () => {
       <section className={cls.mainScreen}>
         <Container className={cls.mainScreenContainer}>
           <Grid container className={cls.mainScreenContainer}>
-            <Grid item xs={12} lg={7} className={cls.height}>
+            <Grid item xs={12} md={7} className={cls.height}>
               <div className={cls.mainScreenStroked}>
                 <MainScreenStroked />
               </div>
@@ -127,49 +262,58 @@ export const MainScreen = () => {
                     onSwiper={(swiper) => console.log(swiper)}
                     onSlideChange={() => console.log('slide change')}
                     autoplay={{
-                      "delay": 2500,
+                      "delay": 4500,
                       "disableOnInteraction": false,
                     }}
                     loop={true}
                     className={cls.mainScreenSliderIn}
                 >
-                  <SwiperSlide>
+                  <SwiperSlide className={cls.mainScreenItemSlide}>
                     <div className={cls.mainScreenItem}>
-                      <Image
-                          src="/img/main/bannerSliderPicture.png"
-                          alt="slider picture"
-                          className={cls.mainScreenPicture}
-                          width={890}
-                          height={879}
-                      />
+                      <div className={cls.mainScreenProgress}></div>
+                      <div className={cls.mainScreenPictureWrapper}>
+                        <Image
+                            src="/img/main/bannerSliderPicture.png"
+                            alt="slider picture"
+                            className={cls.mainScreenPicture}
+                            layout="fill"
+                            objectFit="contain"
+                        />
+                      </div>
                     </div>
                   </SwiperSlide>
-                  <SwiperSlide>
+                  <SwiperSlide className={cls.mainScreenItemSlide}>
                     <div className={cls.mainScreenItem}>
-                      <Image
-                          src="/img/main/bannerSliderPicture.png"
-                          alt="slider picture"
-                          className={cls.mainScreenPicture}
-                          width={890}
-                          height={879}
-                      />
+                      <div className={cls.mainScreenProgress}></div>
+                      <div className={cls.mainScreenPictureWrapper}>
+                        <Image
+                            src="/img/main/bannerSliderPicture.png"
+                            alt="slider picture"
+                            className={cls.mainScreenPicture}
+                            layout="fill"
+                            objectFit="contain"
+                        />
+                      </div>
                     </div>
                   </SwiperSlide>
-                  <SwiperSlide>
+                  <SwiperSlide className={cls.mainScreenItemSlide}>
                     <div className={cls.mainScreenItem}>
-                      <Image
-                          src="/img/main/bannerSliderPicture.png"
-                          alt="slider picture"
-                          className={cls.mainScreenPicture}
-                          width={890}
-                          height={879}
-                      />
+                      <div className={cls.mainScreenProgress}></div>
+                      <div className={cls.mainScreenPictureWrapper}>
+                        <Image
+                            src="/img/main/bannerSliderPicture.png"
+                            alt="slider picture"
+                            className={cls.mainScreenPicture}
+                            layout="fill"
+                            objectFit="contain"
+                        />
+                      </div>
                     </div>
                   </SwiperSlide>
                 </Swiper>
               </div>
             </Grid>
-            <Grid item className={cls.mainScreenInfo} xs={12} lg={5}>
+            <Grid item className={cls.mainScreenInfo} md={5}>
               <div className={cls.mainScreenInfoIn}>
                 <Typography variant={'h1'} className="color-white">
                   <span className="color-red">Enter the new world</span> of datings solutions.

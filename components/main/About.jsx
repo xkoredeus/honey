@@ -3,7 +3,7 @@ import theme from "../../src/assets/theme";
 import {AboutStroked, AboutTitleIcon, Events, Monetization} from "../shared/Svg";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import {Section} from "../shared/Section";
+import {Section} from "../shared";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -23,6 +23,7 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     alignItems: 'flex-start',
     paddingRight: '2rem',
+
     '&::before': {
       content: '""',
       position: 'absolute',
@@ -31,11 +32,26 @@ const useStyles = makeStyles({
       backgroundColor: theme.palette.primary.darkGray,
       width: 'calc(100% + 2600px)',
       height: '100%',
+
+      [theme.breakpoints.down('sm')]: {
+        display: 'none',
+      },
     }
   },
   aboutInfoIn: {
     position: 'relative',
     maxWidth: '540px',
+
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: 'unset',
+      paddingBottom: '20px',
+      '& .color-white': {
+        color: theme.palette.text.primary,
+      },
+      '& .color-light-gray': {
+        color: theme.palette.text.primary,
+      },
+    },
   },
   aboutStroked: {
     '& svg': {
@@ -44,6 +60,14 @@ const useStyles = makeStyles({
       height: '869px',
       right: 0,
       top: '-490px',
+      [theme.breakpoints.down(1899)]: {
+        width: 172,
+        height: 579,
+        top: '-427px',
+      },
+      [theme.breakpoints.down(1700)]: {
+        display: 'none',
+      },
     },
   },
   aboutTitleIcon: {
@@ -53,6 +77,15 @@ const useStyles = makeStyles({
       height: 497,
       left: 0,
       bottom: '-320px',
+
+      [theme.breakpoints.down(1899)]: {
+        bottom: '-210px',
+        width: 85,
+        height: 327,
+      },
+      [theme.breakpoints.down(1700)]: {
+        display: 'none',
+      },
     }
   },
   aboutTestimonialsWrapper: {
@@ -60,23 +93,49 @@ const useStyles = makeStyles({
     height: '100%',
   },
   aboutPictureWrapper: {
+    position: 'relative',
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center',
     paddingRight: '5.8rem',
-    height: '100%',
+    marginTop: '2rem',
+    height: 'calc(100% - 50px)',
+    // [theme.breakpoints.down(1600)]: {
+    // },
+
+    [theme.breakpoints.down('sm')]: {
+      height: 400,
+      justifyContent: 'center',
+      paddingRight: 0,
+      marginTop: 0,
+    }
   },
+  // aboutPicture: {
+  //   width: 464,
+  //   height: 680,
+  // },
   aboutTestimonials: {
     position: 'absolute',
     right: '0',
     bottom: '0',
     width: '100%',
     backgroundColor: theme.palette.primary.main,
+    transform: 'translateY(-2rem)',
+
+    [theme.breakpoints.down('sm')]: {
+      transform: 'translateY(0)',
+    },
   },
   aboutTestimonialsIn: {
     position: 'relative',
     paddingTop: '4rem',
     paddingBottom: '4rem',
+
+    [theme.breakpoints.down('md')]: {
+      paddingTop: '2rem',
+      paddingBottom: '2rem',
+    },
+
     '&::before': {
       position: 'absolute',
       content: '""',
@@ -85,6 +144,10 @@ const useStyles = makeStyles({
       height: '100%',
       backgroundColor: theme.palette.primary.main,
       top: 0,
+
+      [theme.breakpoints.down('md')]: {
+        left: '-30px',
+      },
     }
   },
   aboutTestimonialItem: {
@@ -155,7 +218,7 @@ export const About = () => {
         </div>
         <Container>
           <Grid container>
-            <Grid item xs={12} lg={7} className={cls.aboutInfo}>
+            <Grid item xs={12} md={7} className={cls.aboutInfo}>
               <Section classes={cls.aboutInfoIn}>
                 <Box sx={{mb: '1.8rem'}}>
                   <Typography variant={'h2'} className="color-white">
@@ -180,15 +243,15 @@ export const About = () => {
                 </Button>
               </Section>
             </Grid>
-            <Grid item xs={12} lg={5}>
+            <Grid item xs={12} md={5}>
               <div className={cls.aboutTestimonialsWrapper}>
                 <div className={cls.aboutPictureWrapper}>
                   <Image
                       src="/img/main/aboutPicture.png"
                       alt="slider picture"
-                      className={cls.mainScreenPicture}
-                      width={464}
-                      height={680}
+                      className={cls.aboutPicture}
+                      layout="fill"
+                      objectFit="contain"
                   />
                 </div>
                 <div className={cls.aboutTestimonials}>

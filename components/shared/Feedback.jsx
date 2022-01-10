@@ -60,7 +60,7 @@ export const Feedback = () => {
       <Section classes={cls.feedback}>
         <Container>
           <Grid container>
-            <Grid item lg={3}>
+            <Grid item lg={5} xl={3}>
               <Typography variant={'h2'}>
                 Interested in
                 Collaboration?
@@ -87,11 +87,11 @@ export const Feedback = () => {
                 </a>
               </Box>
             </Grid>
-            <Grid item lg={3} />
+            <Grid item xs={false} xl={3} />
             <Grid item lg={6}>
               <form>
                 <Grid container spacing={4}>
-                  <Grid item lg={6}>
+                  <Grid item xs={12} sm={6}>
                     <TextField
                         label="Full Name"
                         color="secondary"
@@ -100,7 +100,7 @@ export const Feedback = () => {
                         fullWidth
                     />
                   </Grid>
-                  <Grid item lg={6}>
+                  <Grid item xs={12} sm={6}>
                     <TextField
                         label="Phone Number"
                         color="secondary"
@@ -108,7 +108,7 @@ export const Feedback = () => {
                         fullWidth
                     />
                   </Grid>
-                  <Grid item lg={6}>
+                  <Grid item xs={12} sm={6}>
                     <TextField
                         label="E-mail"
                         color="secondary"
@@ -117,7 +117,7 @@ export const Feedback = () => {
                         fullWidth
                     />
                   </Grid>
-                  <Grid item lg={6}>
+                  <Grid item xs={12} sm={6}>
                     <TextField
                         label="Company"
                         color="secondary"
@@ -125,7 +125,7 @@ export const Feedback = () => {
                         fullWidth
                     />
                   </Grid>
-                  <Grid item lg={12}>
+                  <Grid item xs={12} sm={12}>
                     <TextField
                         label="Project Details"
                         color="secondary"

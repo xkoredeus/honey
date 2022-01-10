@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Image from "next/image";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import {Section} from "../shared/Section";
+import {Section} from "../shared";
 import React from "react";
 import {makeStyles} from "@material-ui/core";
 import theme from "../../src/assets/theme";
@@ -23,12 +23,25 @@ const useStyles = makeStyles({
       height: 1041,
       right: 0,
       bottom: '-320px',
+      [theme.breakpoints.down(1899)]: {
+        width: 65,
+        height: 507,
+        bottom: '-204px',
+      },
+      [theme.breakpoints.down(1700)]: {
+        display: 'none',
+      },
     }
   },
   workTop: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    [theme.breakpoints.down('md')]: {
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+      marginBottom: '3rem',
+    },
   },
   workCard: {
     position: 'relative',
@@ -52,12 +65,28 @@ const useStyles = makeStyles({
     left: '50%',
     top: '50%',
     transform: 'translate(-50%, -50%)',
+
+    [theme.breakpoints.down('md')]: {
+      right: 0,
+      left: 'auto',
+      transform: 'translateY(-50%)',
+    },
   },
   workDevice: {
     position: 'relative',
     height: '100%',
     width: '313px',
     marginRight: '4.5rem',
+
+    [theme.breakpoints.down('md')]: {
+      marginRight: 0,
+      width: 203,
+      height: '60%',
+    },
+    [theme.breakpoints.down(612)]: {
+      display: 'none',
+    },
+
     '&::before': {
       content: '""',
       position: 'absolute',
@@ -79,14 +108,26 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     justifyContent: 'space-between',
     padding: '3.25rem',
-    paddingRight: 'calc(3.25rem + 160px)'
+    paddingRight: 'calc(3.25rem + 160px)',
+
+    [theme.breakpoints.down('md')]: {
+      padding: '1.5rem',
+      paddingRight: 200,
+    },
+    [theme.breakpoints.down(612)]: {
+      paddingRight: '1.5rem',
+    },
   },
   workInfoDate: {
     fontFamily: 'Oakes-SemiBold',
   },
   workTestimonials: {
     padding: '3.25rem',
-    paddingLeft: 'calc(3.25rem + 100px)'
+    paddingLeft: 'calc(3.25rem + 100px)',
+
+    [theme.breakpoints.down('md')]: {
+      padding: '1.5rem 1.5rem 2.5rem',
+    },
   },
   workTestimonialsHeader: {
     color: '#484848',
@@ -101,21 +142,44 @@ const useStyles = makeStyles({
   workTestimonialSubtitle: {
     fontWeight: '400',
     color: theme.palette.text.lightGray,
+    [theme.breakpoints.down('md')]: {
+      marginBottom: 0,
+    },
   },
 
   linkNext: {
     color: theme.palette.primary.main,
-    fontWeight: 500,
+    fontFamily: 'Oakes-Medium',
     display: 'flex',
     alignItems: 'center',
+    transition: '.3s all ease',
+
+    '&:hover': {
+      color: theme.palette.text.primary,
+      '& svg': {
+        fill: theme.palette.text.primary,
+      }
+    },
+
     '& svg': {
       width: 20,
       height: 14,
       fill: '#D2595D',
       marginLeft: '.7rem',
+      transition: '.3s all ease',
     }
   },
-});
+
+  workLogo: {
+    position: 'relative',
+    width: 158,
+    height: 55,
+    [theme.breakpoints.down('sm')]: {
+      width: 90,
+      height: 30,
+    },
+  },
+})
 
 export const Work = () => {
   const cls = useStyles();
@@ -153,12 +217,12 @@ export const Work = () => {
                 backgroundImage: 'url("img/main/workBackground1.jpg")'
               }}>
                 <div className={cls.workInfoTop}>
-                  <Box sx={{mb: '1.8rem'}}>
+                  <Box sx={{mb: '1.8rem'}} className={cls.workLogo}>
                     <Image
                         src="/img/main/workLogo.png"
                         alt="case logotype"
-                        width={158}
-                        height={55}
+                        layout="fill"
+                        objectFit="contain"
                     />
                   </Box>
                 </div>
@@ -193,7 +257,7 @@ export const Work = () => {
                   </Typography>
                 </div>
                 <Grid container spacing={4}>
-                  <Grid item lg={6}>
+                  <Grid item xs={6}>
                     <div className={cls.workTestimonial}>
                       <Typography className={cls.workTestimonialTitle} variant={'h3'}>
                         $1million
@@ -203,7 +267,7 @@ export const Work = () => {
                       </Typography>
                     </div>
                   </Grid>
-                  <Grid item lg={6}>
+                  <Grid item xs={6}>
                     <div className={cls.workTestimonial}>
                       <Typography className={cls.workTestimonialTitle} variant={'h3'}>
                         $1,413,650
@@ -213,7 +277,7 @@ export const Work = () => {
                       </Typography>
                     </div>
                   </Grid>
-                  <Grid item lg={6}>
+                  <Grid item xs={6}>
                     <div className={cls.workTestimonial}>
                       <Typography className={cls.workTestimonialTitle} variant={'h3'}>
                         $82,705
@@ -223,7 +287,7 @@ export const Work = () => {
                       </Typography>
                     </div>
                   </Grid>
-                  <Grid item lg={6}>
+                  <Grid item xs={6}>
                     <div className={cls.workTestimonial}>
                       <Typography className={cls.workTestimonialTitle} variant={'h3'}>
                         1609%
@@ -233,7 +297,7 @@ export const Work = () => {
                       </Typography>
                     </div>
                   </Grid>
-                  <Grid item lg={6}>
+                  <Grid item xs={6}>
                     <div className={cls.workTestimonial}>
                       <Typography className={cls.workTestimonialTitle} variant={'h3'}>
                         $82,705
@@ -243,7 +307,7 @@ export const Work = () => {
                       </Typography>
                     </div>
                   </Grid>
-                  <Grid item lg={6}>
+                  <Grid item xs={6}>
                     <div className={cls.workTestimonial}>
                       <Typography className={cls.workTestimonialTitle} variant={'h3'}>
                         1609%
@@ -273,12 +337,12 @@ export const Work = () => {
                 backgroundImage: 'url("img/main/workBackground2.jpg")'
               }}>
                 <div className={cls.workInfoTop}>
-                  <Box sx={{mb: '1.8rem'}}>
+                  <Box sx={{mb: '1.8rem'}} className={cls.workLogo}>
                     <Image
                         src="/img/main/workLogo.png"
                         alt="case logotype"
-                        width={158}
-                        height={55}
+                        layout="fill"
+                        objectFit="contain"
                     />
                   </Box>
                 </div>
@@ -312,8 +376,8 @@ export const Work = () => {
                     Delivered Values:
                   </Typography>
                 </div>
-                <Grid container spacing={4}>
-                  <Grid item lg={6}>
+                <Grid container spacing={3}>
+                  <Grid item xs={6}>
                     <div className={cls.workTestimonial}>
                       <Typography className={cls.workTestimonialTitle} variant={'h3'}>
                         $1million
@@ -323,7 +387,7 @@ export const Work = () => {
                       </Typography>
                     </div>
                   </Grid>
-                  <Grid item lg={6}>
+                  <Grid item xs={6}>
                     <div className={cls.workTestimonial}>
                       <Typography className={cls.workTestimonialTitle} variant={'h3'}>
                         $1,413,650
@@ -333,7 +397,7 @@ export const Work = () => {
                       </Typography>
                     </div>
                   </Grid>
-                  <Grid item lg={6}>
+                  <Grid item xs={6}>
                     <div className={cls.workTestimonial}>
                       <Typography className={cls.workTestimonialTitle} variant={'h3'}>
                         $82,705
@@ -343,7 +407,7 @@ export const Work = () => {
                       </Typography>
                     </div>
                   </Grid>
-                  <Grid item lg={6}>
+                  <Grid item xs={6}>
                     <div className={cls.workTestimonial}>
                       <Typography className={cls.workTestimonialTitle} variant={'h3'}>
                         1609%
@@ -353,7 +417,7 @@ export const Work = () => {
                       </Typography>
                     </div>
                   </Grid>
-                  <Grid item lg={6}>
+                  <Grid item xs={6}>
                     <div className={cls.workTestimonial}>
                       <Typography className={cls.workTestimonialTitle} variant={'h3'}>
                         $82,705
@@ -363,7 +427,7 @@ export const Work = () => {
                       </Typography>
                     </div>
                   </Grid>
-                  <Grid item lg={6}>
+                  <Grid item xs={6}>
                     <div className={cls.workTestimonial}>
                       <Typography className={cls.workTestimonialTitle} variant={'h3'}>
                         1609%

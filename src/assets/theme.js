@@ -34,7 +34,7 @@ const theme = createTheme({
     breakpoints: {
         values: {
             xs: 0,
-            sm: 600,
+            sm: 768,
             md: 960,
             lg: 1240,
             xl: 1466,
@@ -226,6 +226,27 @@ theme.typography.body2 = {
     fontSize: '16px',
     lineHeight: 1.4,
     fontFamily: 'Oakes-Regular, Roboto, Open-Sans, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif',
+
+    '&::-webkit-scrollbar': {
+        width: 5,
+    },
+
+    '&::-webkit-scrollbar-track': {
+        backgroundColor: '#D1D1D1',
+    },
+
+    '&::-webkit-scrollbar-thumb': {
+        width: 5,
+        background: '#D2595D',
+    },
+
+    [theme.breakpoints.down('md')]: {
+        fontSize: '14px',
+    },
+
+    [theme.breakpoints.down('md')]: {
+        fontSize: '13px',
+    },
 }
 
 export default theme

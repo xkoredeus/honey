@@ -14,7 +14,6 @@ import Image from "next/image";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import cx from "clsx";
 import {makeStyles} from "@material-ui/core";
 import theme from "../../src/assets/theme";
 
@@ -121,8 +120,8 @@ const useStyles = makeStyles({
       }
     },
 
-    [theme.breakpoints.down('sm')]: {
-      height: 390,
+    [theme.breakpoints.down('xs')]: {
+      height: 290,
       paddingLeft: 0,
       paddingTop: '1.5rem',
     },
@@ -177,6 +176,7 @@ export const Benefits = () => {
                       alt="benefits device"
                       objectFit="contain"
                       layout="fill"
+                      priority={true}
                   />
                 </div>
               </Section>
@@ -212,11 +212,20 @@ export const Benefits = () => {
                             ]
                           }
                         }}
+                        // breakpoints={{
+                        //   // when window width is >= 640px
+                        //   0: {
+                        //     autoHeight: true,
+                        //   },
+                        //   // when window width is >= 768px
+                        //   768: {
+                        //     autoplay: {
+                        //       delay: 2500,
+                        //       disableOnInteraction: 'true',
+                        //     },
+                        //   }
+                        // }}
                         speed={1000}
-                        autoplay={{
-                          "delay": 2500,
-                          "disableOnInteraction": true,
-                        }}
                         spaceBetween={30}
                         loop={true}
                         className={cls.benefitsCardSlider}
@@ -322,7 +331,7 @@ export const Benefits = () => {
                         onSwiper={setThumbsSwiper}
                         className={cls.benefitsPoints}
                         direction={'vertical'}
-                        autoHeight={true}
+                        autoHeight="true"
                     >
                       <SwiperSlide className={cls.benefitsPoint}>
                         <span>We make dating business tasks</span>

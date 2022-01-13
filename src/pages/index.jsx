@@ -1,5 +1,5 @@
 import React from "react";
-import {Layout} from "../layouts/Layout";
+import {Layout} from "../layouts";
 import {About, Benefits, MainScreen, Work} from "../../components/main";
 import {Feedback} from "../../components/shared";
 

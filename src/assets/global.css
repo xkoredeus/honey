@@ -19,6 +19,10 @@ a {
     color: #AEAEAE;
 }
 
+.color-medium-gray {
+    color: #767676;
+}
+
 @keyframes progressbar {
     0%{
         height: 0;

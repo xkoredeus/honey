@@ -27,6 +27,9 @@ const useStyles = makeStyles({
       height: 'auto',
       minHeight: 'auto',
     },
+    [theme.breakpoints.down('sm')]: {
+      paddingTop: '70px',
+    },
   },
   mainScreenContainer: {
     height: '100%',
@@ -74,8 +77,6 @@ const useStyles = makeStyles({
   },
   mainScreenSlider: {
     height: '100%',
-    // display: 'flex',
-    // alignItems: 'flex-end',
   },
   mainScreenItem: {
     position: 'relative',
@@ -105,19 +106,16 @@ const useStyles = makeStyles({
   },
   mainScreenPictureWrapper: {
     position: 'relative',
-    width: 731,
-    height: 871,
-
+    width: 771,
+    height: 1041,
     [theme.breakpoints.down('lg')]: {
       width: 591,
-      height: 681,
+      height: 791,
     },
-
     [theme.breakpoints.down('sm')]: {
       width: '100%',
       height: 442,
     },
-
     [theme.breakpoints.down(495)]: {
       width: '60%',
       height: 342,
@@ -125,7 +123,6 @@ const useStyles = makeStyles({
     [theme.breakpoints.down(420)]: {
       height: 281,
     },
-
     '&::before': {
       content: '""',
       position: 'absolute',
@@ -136,7 +133,6 @@ const useStyles = makeStyles({
       borderRadius: 40,
       boxShadow: '16px 15px 18px 11px #00000052',
       transform: 'translate(-50%, -50%)',
-
       [theme.breakpoints.down('sm')]: {
         display: 'none',
       },
@@ -262,8 +258,8 @@ export const MainScreen = () => {
                     onSwiper={(swiper) => console.log(swiper)}
                     onSlideChange={() => console.log('slide change')}
                     autoplay={{
-                      "delay": 4500,
-                      "disableOnInteraction": false,
+                      'delay': 4500,
+                      'disableOnInteraction': false,
                     }}
                     loop={true}
                     className={cls.mainScreenSliderIn}
@@ -273,11 +269,12 @@ export const MainScreen = () => {
                       <div className={cls.mainScreenProgress}></div>
                       <div className={cls.mainScreenPictureWrapper}>
                         <Image
-                            src="/img/main/bannerSliderPicture.png"
+                            src={'/img/main/bannerSliderPicture.png'}
                             alt="slider picture"
                             className={cls.mainScreenPicture}
                             layout="fill"
                             objectFit="contain"
+                            priority={true}
                         />
                       </div>
                     </div>
@@ -287,11 +284,12 @@ export const MainScreen = () => {
                       <div className={cls.mainScreenProgress}></div>
                       <div className={cls.mainScreenPictureWrapper}>
                         <Image
-                            src="/img/main/bannerSliderPicture.png"
+                            src={'/img/main/bannerSliderPicture.png'}
                             alt="slider picture"
                             className={cls.mainScreenPicture}
                             layout="fill"
                             objectFit="contain"
+                            priority={true}
                         />
                       </div>
                     </div>
@@ -301,11 +299,12 @@ export const MainScreen = () => {
                       <div className={cls.mainScreenProgress}></div>
                       <div className={cls.mainScreenPictureWrapper}>
                         <Image
-                            src="/img/main/bannerSliderPicture.png"
+                            src={'/img/main/bannerSliderPicture.png'}
                             alt="slider picture"
                             className={cls.mainScreenPicture}
                             layout="fill"
                             objectFit="contain"
+                            priority={true}
                         />
                       </div>
                     </div>

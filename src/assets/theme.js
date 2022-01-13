@@ -52,9 +52,6 @@ const theme = createTheme({
 
     // Custom
     overrides: {
-        body: {
-          fontSize: '14px'
-        },
 
         MuiCheckbox: {
             colorPrimary: {
@@ -63,15 +60,18 @@ const theme = createTheme({
         },
 
         MuiInput: {
-            colorSecondary: {
-                fontSize: '1.125rem',
-            }
+            root: {
+                color: '#737373',
+                fontSize: '1rem',
+                '&:placeholder': {
+                    color: '#737373',
+                }
+            },
         },
 
         MuiButton: {
             contained: {
                 textTransform: 'none',
-                fontSize: '1rem',
                 fontFamily: 'Oakes-Medium',
                 borderRadius: '10px',
                 boxShadow: 'unset',
@@ -84,7 +84,6 @@ const theme = createTheme({
                 boxShadow: 'unset',
             },
             sizeLarge: {
-                fontSize: `1.15rem`,
                 padding: '1rem 3rem',
             },
             outlined: {
@@ -104,7 +103,6 @@ const theme = createTheme({
                 },
             },
             containedSecondary: {
-                fontSize: '1rem',
                 fontFamily: 'Oakes-Medium',
                 padding: '.6rem 1.2rem',
                 boxShadow: 'unset',
@@ -129,7 +127,17 @@ const theme = createTheme({
     },
     ...themeBase,
 })
+theme.overrides.MuiButton.root = {
+    fontSize: '16px',
 
+    [theme.breakpoints.down('md')]: {
+        fontSize: '14px',
+    },
+
+    [theme.breakpoints.down('md')]: {
+        fontSize: '13px',
+    },
+}
 theme.overrides.MuiContainer.root = {
     [theme.breakpoints.up(1280)]: {
         maxWidth: '1600px !important'
@@ -208,16 +216,40 @@ theme.typography.h5 = {
 }
 
 theme.typography.subtitle2 = {
-    fontWeight: 400,
-    fontSize: '1.25rem',
-    marginBottom: '2.25rem',
-    lineHeight: 1.4,
+    fontFamily: 'Oakes-Bold',
+    fontSize: '10rem',
+    lineHeight: 1.1,
     [theme.breakpoints.down('lg')]: {
-        fontSize: '1.1rem',
+        fontSize: '6rem',
     },
-    [theme.breakpoints.down(1280)]: {
-        fontSize: '1rem',
-        marginBottom: '1rem',
+    [theme.breakpoints.down('md')]: {
+        fontSize: '3rem',
+    },
+    [theme.breakpoints.down('sm')]: {
+        fontSize: '2rem',
+    },
+}
+
+theme.typography.body1 = {
+    fontWeight: 'normal',
+    fontSize: '16px',
+    lineHeight: 1.4,
+
+    '&::-webkit-scrollbar': {
+        width: 5,
+    },
+
+    '&::-webkit-scrollbar-track': {
+        backgroundColor: '#D1D1D1',
+    },
+
+
+    [theme.breakpoints.down('md')]: {
+        fontSize: '14px',
+    },
+
+    [theme.breakpoints.down('sm')]: {
+        fontSize: '13px',
     },
 }
 
@@ -246,6 +278,26 @@ theme.typography.body2 = {
 
     [theme.breakpoints.down('md')]: {
         fontSize: '13px',
+    },
+}
+
+theme.overrides.body = {
+    fontWeight: 'normal',
+    fontSize: '16px',
+    lineHeight: 1.4,
+    fontFamily: 'Oakes-Regular, Roboto, Open-Sans, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif',
+
+    '&::-webkit-scrollbar': {
+        width: 5,
+    },
+
+    '&::-webkit-scrollbar-track': {
+        backgroundColor: '#D1D1D1',
+    },
+
+    '&::-webkit-scrollbar-thumb': {
+        width: 5,
+        background: '#D2595D',
     },
 }
 

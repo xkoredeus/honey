@@ -51,19 +51,91 @@ const useStyles = makeStyles({
         maxWidth: 17,
       }
     },
+  },
+
+  rootDark: {
+    color: '#fff',
+    backgroundColor: theme.palette.text.primary,
+
+    '& .MuiFormLabel-root': {
+      color: theme.palette.text.lightGray,
+    },
+    '& .MuiInput-underline:after, & .MuiInput-underline:before, & .MuiInput-underline:hover:not(.Mui-disabled):before': {
+      borderBottomColor: theme.palette.text.lightGray,
+    }
+  },
+
+  feedbackTitle: {
+    marginBottom: '.5rem',
+
+    [theme.breakpoints.down('md')]: {
+      marginBottom: '.3rem',
+    },
+  },
+
+  feedbackRow: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+
+  feedbackCheckbox: {
+    position: 'relative',
+    cursor: 'pointer',
+    display: 'flex',
+
+    marginRight: '1rem',
+    marginBottom: '1rem',
+
+    [theme.breakpoints.down('md')]: {
+      marginRight: '.5rem',
+      marginBottom: '.5rem',
+    },
+
+    '& input': {
+      position: 'absolute',
+      visibility: 'hidden',
+      zIndex: '-1',
+
+      '&:checked ~ $feedbackCheckboxIn': {
+        color: theme.palette.primary.main,
+        borderColor: theme.palette.primary.main,
+      }
+    },
+  },
+  feedbackCheckboxIn: {
+    fontSize: 16,
+    fontFamily: 'Oakes-Medium',
+    padding: '.6rem 1.2rem',
+    borderRadius: 45,
+    border: '1px solid #D1D1D1',
+    transition: 'all .5s ease',
+
+    [theme.breakpoints.down('md')]: {
+      fontSize: '14px',
+    },
+
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '13px',
+    },
+
+    '&:hover': {
+      color: '#aaa',
+    }
   }
 })
 
-export const Feedback = () => {
+export const Feedback = ({backgroundDark, showCheckboxes = false, title = "Interested in Collaboration?" }) => {
   const cls = useStyles();
+  const inputProps = !backgroundDark && {
+        color: "secondary",
+    };
   return (
-      <Section classes={cls.feedback}>
+      <Section classes={`${cls.root} ${backgroundDark ? cls.rootDark : ""}`}>
         <Container>
           <Grid container>
             <Grid item lg={5} xl={3}>
               <Typography variant={'h2'}>
-                Interested in
-                Collaboration?
+                {title}
               </Typography>
               <Box className={cls.feedbackSubtitle} sx={{marginBottom: {xs: '1.5rem', md: '2rem', lg: '3rem'}}}>
                 <Typography variant={'h5'} >
@@ -91,49 +163,100 @@ export const Feedback = () => {
             <Grid item lg={6}>
               <form>
                 <Grid container spacing={4}>
+                  {showCheckboxes ? (
+                      <>
+                        <Grid item xs={12}>
+                          <div className={cls.feedbackTitle}>
+                            Services
+                          </div>
+                          <div className={cls.feedbackRow}>
+                            <label className={cls.feedbackCheckbox}>
+                              <input type="radio" name="services" value="Web App"/>
+                              <span className={cls.feedbackCheckboxIn}>Web app</span>
+                            </label>
+                            <label className={cls.feedbackCheckbox}>
+                              <input type="radio" name="services" value="Website"/>
+                              <span className={cls.feedbackCheckboxIn}>Website</span>
+                            </label>
+                            <label className={cls.feedbackCheckbox}>
+                              <input type="radio" name="services" value="Mobile Application"/>
+                              <span className={cls.feedbackCheckboxIn}>Mobile Application</span>
+                            </label>
+                          </div>
+                        </Grid>
+                        <Grid item xs={12}>
+                          <div className={cls.feedbackTitle}>
+                            Budget in USD
+                          </div>
+                          <div className={cls.feedbackRow}>
+                            <label className={cls.feedbackCheckbox}>
+                              <input type="radio" name="budget" value="Less than 5K"/>
+                              <span className={cls.feedbackCheckboxIn}>Less than 5K</span>
+                            </label>
+                            <label className={cls.feedbackCheckbox}>
+                              <input type="radio" name="budget" value="5K - 10K"/>
+                              <span className={cls.feedbackCheckboxIn}>5K - 10K</span>
+                            </label>
+                            <label className={cls.feedbackCheckbox}>
+                              <input type="radio" name="budget" value="10K - 50K"/>
+                              <span className={cls.feedbackCheckboxIn}>10K - 50K</span>
+                            </label>
+                            <label className={cls.feedbackCheckbox}>
+                              <input type="radio" name="budget" value="More than 50K"/>
+                              <span className={cls.feedbackCheckboxIn}>More than 50K</span>
+                            </label>
+                          </div>
+                        </Grid>
+                      </>
+                  ) : ""}
                   <Grid item xs={12} sm={6}>
                     <TextField
                         label="Full Name"
-                        color="secondary"
                         placeholder="Enter your name"
+                        {...inputProps}
                         required
                         fullWidth
+                        focused
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
                         label="Phone Number"
-                        color="secondary"
+                        {...inputProps}
                         placeholder="Enter your number"
                         fullWidth
+                        focused
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
                         label="E-mail"
-                        color="secondary"
+                        {...inputProps}
                         placeholder="Enter your e-mail"
                         required
                         fullWidth
+                        focused
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
                         label="Company"
-                        color="secondary"
+                        {...inputProps}
                         placeholder="Enter your company name"
                         fullWidth
+                        focused
                     />
                   </Grid>
                   <Grid item xs={12} sm={12}>
                     <TextField
                         label="Project Details"
-                        color="secondary"
+                        {...inputProps}
                         placeholder="Write about your project"
                         required
                         multiline
                         rows={6}
                         fullWidth
+                        focused
                     />
                   </Grid>
                 </Grid>

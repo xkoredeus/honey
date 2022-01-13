@@ -14,7 +14,7 @@ const useStyles = makeStyles({
     width: '100%',
     left: 0,
     top: 0,
-    zIndex: 2,
+    zIndex: 3,
     paddingTop: '24px',
     [theme.breakpoints.down('md')]: {
       paddingTop: '1rem',
@@ -46,6 +46,7 @@ const useStyles = makeStyles({
     left: '50%',
     top: '50%',
     transform: 'translate(-50%, -50%)',
+    zIndex: 1,
 
     [theme.breakpoints.down('xs')]: {
       left: 16,
@@ -154,10 +155,10 @@ const useStyles = makeStyles({
 
     [theme.breakpoints.down('xs')]: {
       position: 'absolute',
+      top: 0,
       right: '100%',
-      top: 50,
       background: theme.palette.primary.gray,
-      paddingTop: '1.5rem',
+      paddingTop: 70,
       paddingBottom: '2.5rem'
     },
     '&.menuActive': {
@@ -228,13 +229,13 @@ export const Header = () => {
             <Logo />
           </div>
           <button className={cx(cls.burger, menuOpen ? 'burgerActive' : '')} onClick={() => setMenuOpen(!menuOpen)}>
-            <span className={cls.burgerIn}></span>
+            <span className={cls.burgerIn} />
           </button>
           <div className={cx(cls.menu, menuOpen ? 'menuActive' : '')}>
             <Container className={cls.headerIn}>
               <nav className={cls.nav}>
                 <span className={cls.navLinkWrapper}>
-                  <Link href="/">
+                  <Link href={'/about'}>
                     <a className={cls.navLink}>
                       <span>About us</span>
                       <svg className={cls.arr} width="10" height="5" viewBox="0 0 10 5" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -244,19 +245,19 @@ export const Header = () => {
                   </Link>
                   <span className={cls.navLinkDropdown}>
                     <span className={cls.navLinkDropdownIn}>
-                      <Link href="/">
+                      <Link href={'/team'}>
                         <a className={cls.navLinkDropdownLink}>
                           <span>Our Team</span>
                           <ArrowNext />
                         </a>
                       </Link>
-                      <Link href="/">
+                      <Link href={'/about'}>
                         <a className={cls.navLinkDropdownLink}>
                           <span>What We Do</span>
                           <ArrowNext />
                         </a>
                       </Link>
-                      <Link href="/">
+                      <Link href={'/careers'}>
                         <a className={cls.navLinkDropdownLink}>
                           <span>Careers</span>
                           <ArrowNext />
@@ -266,12 +267,12 @@ export const Header = () => {
                   </span>
                 </span>
                     <span className={cls.navLinkWrapper}>
-                  <Link href="/">
+                  <Link href={'/cases'}>
                     <a className={cls.navLink}>Our cases</a>
                   </Link>
                 </span>
                     <span className={cls.navLinkWrapper}>
-                  <Link href="/">
+                  <Link href={'/contacts'}>
                     <a className={cls.navLink}>Contact Us</a>
                   </Link>
                 </span>

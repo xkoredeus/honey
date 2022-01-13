@@ -100,8 +100,6 @@ const useStyles = makeStyles({
     paddingRight: '5.8rem',
     marginTop: '2rem',
     height: 'calc(100% - 50px)',
-    // [theme.breakpoints.down(1600)]: {
-    // },
 
     [theme.breakpoints.down('sm')]: {
       height: 400,
@@ -110,10 +108,6 @@ const useStyles = makeStyles({
       marginTop: 0,
     }
   },
-  // aboutPicture: {
-  //   width: 464,
-  //   height: 680,
-  // },
   aboutTestimonials: {
     position: 'absolute',
     right: '0',
@@ -252,6 +246,7 @@ export const About = () => {
                       className={cls.aboutPicture}
                       layout="fill"
                       objectFit="contain"
+                      priority={true}
                   />
                 </div>
                 <div className={cls.aboutTestimonials}>

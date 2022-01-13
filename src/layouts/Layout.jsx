@@ -10,13 +10,14 @@ const useStyles = makeStyles({
 
 export const Layout = ({ children }) => {
   const cls = useStyles();
+  const footerRed = {children};
   return (
       <>
         <Header />
         <main className={cls.main}>
           {children}
         </main>
-        <Footer />
+        <Footer backgroundRed={footerRed} />
       </>
   )
 }

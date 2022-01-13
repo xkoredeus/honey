@@ -1,13 +1,16 @@
-import {makeStyles} from "@material-ui/core";
-import Container from "@material-ui/core/Container";
-import {Logo} from "./Logo";
 import React from "react";
 import Link from "next/link";
+import {makeStyles,Container} from "@material-ui/core";
+
+import {Logo} from "./Logo";
 import theme from "../../src/assets/theme";
 
 const useStyles = makeStyles({
   root: {
     backgroundColor: theme.palette.text.primary,
+  },
+  rootRed: {
+    backgroundColor: theme.palette.primary.main,
   },
   footerIn: {
     position: 'relative',
@@ -54,27 +57,27 @@ const useStyles = makeStyles({
   }
 })
 
-export const Footer = () => {
+export const Footer = ({backgroundRed}) => {
   const cls = useStyles();
   return (
-    <footer className={cls.root}>
+    <footer className={`${cls.root} ${backgroundRed ? cls.rootRed : ""}`}>
       <Container className={cls.footerIn}>
-        <Logo footer />
+        <Logo footer darkCircle={backgroundRed}/>
         <nav className={cls.nav}>
           <div className={cls.navLink}>
-            <Link href="/">Careers</Link>
+            <Link href={'/careers'}>Careers</Link>
           </div>
           <div className={cls.navLink}>
-            <Link href="/">What We Do</Link>
+            <Link href={'/about'}>What We Do</Link>
           </div>
           <div className={cls.navLink}>
-            <Link href="/">Our Team</Link>
+            <Link href={'/team'}>Our Team</Link>
           </div>
           <div className={cls.navLink}>
-            <Link href="/">Our Cases</Link>
+            <Link href={'/cases'}>Our Cases</Link>
           </div>
           <div className={cls.navLink}>
-            <Link href="/">Contact Us</Link>
+            <Link href={'/contacts'}>Contact Us</Link>
           </div>
         </nav>
       </Container>

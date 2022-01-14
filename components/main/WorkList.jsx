@@ -79,12 +79,28 @@ const useStyles = makeStyles({
       padding: '1.5rem',
       paddingRight: 200,
     },
-    [theme.breakpoints.down(612)]: {
-      paddingRight: '1.5rem',
+    [theme.breakpoints.down('xs')]: {
+      padding: '1rem',
+
+      '& button': {
+        width: '100%',
+      },
     },
   },
   workInfoDate: {
     fontFamily: 'Oakes-SemiBold',
+    [theme.breakpoints.down('xs')]: {
+      '& > *': {
+        marginBottom: '.5rem',
+      },
+    },
+  },
+  workInfoTitle: {
+    [theme.breakpoints.down('xs')]: {
+      '& > *': {
+        marginBottom: '.5rem',
+      },
+    },
   },
   workTestimonials: {
     padding: '3.25rem',
@@ -92,6 +108,10 @@ const useStyles = makeStyles({
 
     [theme.breakpoints.down('md')]: {
       padding: '1.5rem 1.5rem 2.5rem',
+    },
+
+    [theme.breakpoints.down('xs')]: {
+      display: 'none',
     },
   },
   workTestimonialsHeader: {
@@ -162,9 +182,11 @@ export const WorkList = () => {
                     2020
                   </Typography>
                 </div>
-                <Typography variant={'h3'}>
-                  Finde Dein Abenteuer
-                </Typography>
+                <div className={cls.workInfoTitle}>
+                  <Typography variant={'h3'}>
+                    Finde Dein Abenteuer
+                  </Typography>
+                </div>
                 <Box sx={{mb: '1.8rem'}}>
                   <Typography>
                     Aliquam porta nisl dolor, molestie pellentesque elit molestie in. Morbi metus neque, elementum ullamcorper hendrerit eget, tincidunt et nisi. Sed magna nunc, consequat vel aliquam vitae, porta ac mi. Integer commodo sapien lacus, nec interdum nisi vehicula aliquam. Aliquam enim lorem,
@@ -179,7 +201,7 @@ export const WorkList = () => {
               </div>
             </div>
           </Grid>
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={false} md={12} lg={6}>
             <div className={cls.workTestimonials}>
               <div className={cls.workTestimonialsHeader}>
                 <Typography variant={'h3'}>
@@ -284,9 +306,11 @@ export const WorkList = () => {
                     2020
                   </Typography>
                 </div>
-                <Typography variant={'h3'}>
-                  Finde Dein Abenteuer
-                </Typography>
+                <div className={cls.workInfoTitle}>
+                  <Typography variant={'h3'}>
+                    Finde Dein Abenteuer
+                  </Typography>
+                </div>
                 <Box sx={{mb: '1.8rem'}}>
                   <Typography>
                     Aliquam porta nisl dolor, molestie pellentesque elit molestie in. Morbi metus neque, elementum ullamcorper hendrerit eget, tincidunt et nisi. Sed magna nunc, consequat vel aliquam vitae, porta ac mi. Integer commodo sapien lacus, nec interdum nisi vehicula aliquam. Aliquam enim lorem,
@@ -301,7 +325,7 @@ export const WorkList = () => {
               </div>
             </div>
           </Grid>
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={false} md={12} lg={6}>
             <div className={cls.workTestimonials}>
               <div className={cls.workTestimonialsHeader}>
                 <Typography variant={'h3'}>

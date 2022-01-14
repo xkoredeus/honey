@@ -671,7 +671,7 @@ const useStyles = makeStyles({
       left: '50%',
       bottom: 50,
       transform: 'translateX(-50%)',
-      zindex: 1,
+      zIndex: 1,
 
       [theme.breakpoints.down(1600)]: {
         height: 60,

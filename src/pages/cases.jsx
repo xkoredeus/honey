@@ -11,7 +11,7 @@ const useStyles = makeStyles({
     paddingTop: '120px',
 
     [theme.breakpoints.down('sm')]: {
-      paddingTop: '70px',
+      paddingTop: '90px',
     },
   },
   list: {

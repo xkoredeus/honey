@@ -155,10 +155,10 @@ const useStyles = makeStyles({
 
     [theme.breakpoints.down('xs')]: {
       position: 'absolute',
-      top: 0,
+      top: '-1rem',
       right: '100%',
       background: theme.palette.primary.gray,
-      paddingTop: 70,
+      paddingTop: 80,
       paddingBottom: '2.5rem'
     },
     '&.menuActive': {

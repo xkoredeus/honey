@@ -14,7 +14,6 @@ const useStyles = makeStyles({
   offer: {
     position: 'relative',
     backgroundColor: '#F3F3F3',
-    // paddingTop: '120px',
     height: '100vh',
     minHeight: '800px',
     overflow: 'hidden',
@@ -22,9 +21,6 @@ const useStyles = makeStyles({
       height: 'auto',
       minHeight: 'auto',
     },
-    // [theme.breakpoints.down('sm')]: {
-    //   paddingTop: '70px',
-    // },
   },
   offerSubtitleWrapper: {
     position: 'relative',
@@ -152,7 +148,9 @@ const ContactsPage = () => {
             </Grid>
           </Container>
         </section>
-        <Feedback showCheckboxes={true}/>
+        <div id={'feedback'}>
+          <Feedback showCheckboxes={true}/>
+        </div>
       </Layout>
   )
 }

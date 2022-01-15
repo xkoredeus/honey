@@ -134,13 +134,20 @@ theme.overrides.MuiButton.root = {
         fontSize: '14px',
     },
 
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
         fontSize: '13px',
+    },
+
+
+    [theme.breakpoints.down(500)]: {
+        width: '100%',
     },
 }
 theme.overrides.MuiContainer.root = {
     [theme.breakpoints.up(1280)]: {
-        maxWidth: '1600px !important'
+        maxWidth: '1600px !important',
+        paddingLeft: 100,
+        paddingRight: 100,
     },
     [theme.breakpoints.down(1279)]: {
         maxWidth: '1279px'

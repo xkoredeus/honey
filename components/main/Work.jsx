@@ -17,15 +17,14 @@ const useStyles = makeStyles({
     '& svg': {
       position: 'absolute',
       width: 90,
-      height: 1041,
+      height: 'auto',
       right: 0,
       bottom: '-320px',
       [theme.breakpoints.down(1899)]: {
-        width: 65,
-        height: 507,
-        bottom: '-204px',
+        width: 80,
+        bottom: '-297px',
       },
-      [theme.breakpoints.down(1700)]: {
+      [theme.breakpoints.down('md')]: {
         display: 'none',
       },
     }
@@ -61,6 +60,11 @@ const useStyles = makeStyles({
       fill: '#D2595D',
       marginLeft: '.7rem',
       transition: '.3s all ease',
+      [theme.breakpoints.down('md')]: {
+        width: 15,
+        height: 11,
+        marginBottom: 4,
+      },
     }
   },
 })
@@ -78,7 +82,7 @@ export const Work = () => {
             <Typography variant={'h1'}>
               Recent Cases
             </Typography>
-            <Link href="/">
+            <Link href="/cases">
               <a className={cls.linkNext}>
                 <span>See all cases</span>
                 <ArrowNext />

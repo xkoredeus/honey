@@ -10,6 +10,7 @@ import Button from "@material-ui/core/Button";
 import Image from "next/image";
 import cx from "clsx";
 import React from "react";
+import Link from "next/link";
 
 const useStyles = makeStyles({
   about: {
@@ -24,6 +25,11 @@ const useStyles = makeStyles({
     alignItems: 'flex-start',
     paddingRight: '2rem',
 
+    [theme.breakpoints.down('sm')]: {
+      order: 2,
+      zIndex: 2,
+    },
+
     '&::before': {
       content: '""',
       position: 'absolute',
@@ -34,7 +40,8 @@ const useStyles = makeStyles({
       height: '100%',
 
       [theme.breakpoints.down('sm')]: {
-        display: 'none',
+        width: 'calc(100% + 100px)',
+        left: '-50px',
       },
     }
   },
@@ -44,28 +51,26 @@ const useStyles = makeStyles({
 
     [theme.breakpoints.down('sm')]: {
       maxWidth: 'unset',
-      paddingBottom: '20px',
-      '& .color-white': {
-        color: theme.palette.text.primary,
-      },
-      '& .color-light-gray': {
-        color: theme.palette.text.primary,
-      },
+      paddingTop: '2rem',
+      paddingBottom: 210,
+    },
+
+    [theme.breakpoints.down('xs')]: {
+      paddingBottom: 240,
     },
   },
   aboutStroked: {
     '& svg': {
       position: 'absolute',
-      width: '272px',
-      height: '869px',
+      width: 245,
+      height: 'auto',
       right: 0,
       top: '-490px',
       [theme.breakpoints.down(1899)]: {
         width: 172,
-        height: 579,
         top: '-427px',
       },
-      [theme.breakpoints.down(1700)]: {
+      [theme.breakpoints.down('md')]: {
         display: 'none',
       },
     },
@@ -74,39 +79,80 @@ const useStyles = makeStyles({
     '& svg': {
       position: 'absolute',
       width: 125,
-      height: 497,
+      height: 'auto',
       left: 0,
       bottom: '-320px',
 
       [theme.breakpoints.down(1899)]: {
-        bottom: '-210px',
-        width: 85,
-        height: 327,
+        width: 90,
+        bottom: '-297px',
       },
-      [theme.breakpoints.down(1700)]: {
+      [theme.breakpoints.down('md')]: {
         display: 'none',
       },
     }
   },
+  aboutTestimonialsColumn: {
+    [theme.breakpoints.down('sm')]: {
+      order: 1,
+      marginBottom: '-140px',
+    },
+    [theme.breakpoints.down('xs')]: {
+      order: 1,
+      marginBottom: '-100px',
+    },
+  },
   aboutTestimonialsWrapper: {
     position: 'relative',
     height: '100%',
+
+    [theme.breakpoints.down('sm')]: {
+      position: 'static',
+    },
   },
   aboutPictureWrapper: {
     position: 'relative',
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    paddingRight: '5.8rem',
     marginTop: '2rem',
-    height: 'calc(100% - 50px)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
 
     [theme.breakpoints.down('sm')]: {
-      height: 400,
       justifyContent: 'center',
       paddingRight: 0,
       marginTop: 0,
-    }
+      paddingTop: '30px',
+    },
+  },
+  aboutPicture: {
+    position: 'relative',
+    width: 200,
+    height: 'auto',
+
+    [theme.breakpoints.down('sm')]: {
+      width: '30%',
+    },
+
+    [theme.breakpoints.down('xs')]: {
+      width: '50%',
+    },
+
+    '& > span': {
+      overflow: 'visible !important',
+    },
+
+    '& > span::before': {
+      content: '""',
+      position: 'absolute',
+      left: '50%',
+      top: '50%',
+      width: '95%',
+      height: '95%',
+      borderRadius: 40,
+      boxShadow: '-14px 0px 17px 11px #00000033',
+      transform: 'translate(-50%, -50%)'
+    },
+
   },
   aboutTestimonials: {
     position: 'absolute',
@@ -118,6 +164,7 @@ const useStyles = makeStyles({
 
     [theme.breakpoints.down('sm')]: {
       transform: 'translateY(0)',
+      zIndex: 2,
     },
   },
   aboutTestimonialsIn: {
@@ -128,6 +175,10 @@ const useStyles = makeStyles({
     [theme.breakpoints.down('md')]: {
       paddingTop: '2rem',
       paddingBottom: '2rem',
+    },
+    [theme.breakpoints.down('xs')]: {
+      paddingTop: '1rem',
+      paddingBottom: '1rem',
     },
 
     '&::before': {
@@ -162,6 +213,9 @@ const useStyles = makeStyles({
   },
   aboutTestimonialItem1: {
     paddingLeft: 0,
+    [theme.breakpoints.down('xs')]: {
+      paddingLeft: '1rem',
+    },
     '&::after': {
       position: 'absolute',
       content: '""',
@@ -170,6 +224,11 @@ const useStyles = makeStyles({
       height: '70%',
       backgroundColor: '#B03C3F',
       top: '1rem',
+      [theme.breakpoints.down('xs')]: {
+        width: '100%',
+        height: 1,
+        top: '100%',
+      },
     }
   },
   aboutTestimonialIcon: {
@@ -200,7 +259,16 @@ const useStyles = makeStyles({
   aboutTestimonialIntro: {
     maxWidth: 189,
     gridColumn: "2/3",
+    [theme.breakpoints.down('xs')]: {
+      maxWidth: 'unset',
+    },
   },
+
+  container: {
+    [theme.breakpoints.down('sm')]: {
+      position: 'relative',
+    },
+  }
 });
 
 export const About = () => {
@@ -211,7 +279,7 @@ export const About = () => {
           <AboutStroked />
         </div>
         <Container>
-          <Grid container>
+          <Grid container className={cls.container}>
             <Grid item xs={12} md={7} className={cls.aboutInfo}>
               <Section classes={cls.aboutInfoIn}>
                 <Box sx={{mb: '1.8rem'}}>
@@ -229,29 +297,37 @@ export const About = () => {
                     <span className="color-light-gray">laoreet ut egestas quis, rutrum sed lectus. Duis et purus in dolor bibendum egestas vel vitae urna. Vestibulum dictum semper laoreet. Nulla augue tellus, aliquam mollis quam eget, maximus iaculis sem. Praesent semper ex tortor, in rhoncus arcu sollicitudin ut. Donec</span>
                   </Typography>
                 </Box>
-                <Button
-                    variant='contained'
-                    color='primary'
+                <Link
+                    href={'/contacts#feedback'}
                 >
-                  Start a project
-                </Button>
+                  <a>
+                    <Button
+                        variant='contained'
+                        color='primary'
+                    >
+                      Start a project
+                    </Button>
+                  </a>
+                </Link>
               </Section>
             </Grid>
-            <Grid item xs={12} md={5}>
+            <Grid item xs={12} md={5} className={cls.aboutTestimonialsColumn}>
               <div className={cls.aboutTestimonialsWrapper}>
                 <div className={cls.aboutPictureWrapper}>
-                  <Image
-                      src="/img/main/aboutPicture.png"
-                      alt="slider picture"
-                      className={cls.aboutPicture}
-                      layout="fill"
-                      objectFit="contain"
-                      priority={true}
-                  />
+                  <div className={cls.aboutPicture}>
+                    <Image
+                        src="/img/main/aboutPicture.png"
+                        alt="slider picture"
+                        layout="responsive"
+                        width={313}
+                        height={635}
+                        priority={true}
+                    />
+                  </div>
                 </div>
                 <div className={cls.aboutTestimonials}>
                   <Grid container className={cls.aboutTestimonialsIn}>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                       <div className={cx(cls.aboutTestimonialItem, cls.aboutTestimonialItem1)}>
                         <div className={cls.aboutTestimonialIcon}>
                           <Monetization />
@@ -260,7 +336,7 @@ export const About = () => {
                         <div className={cls.aboutTestimonialIntro}>Turnover of portals created and maintained by us</div>
                       </div>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                       <div className={cls.aboutTestimonialItem}>
                         <div className={cls.aboutTestimonialIcon}>
                           <Events />

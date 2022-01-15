@@ -1,7 +1,9 @@
-import React, {useState} from "react";
+import React, {useState, useRef} from "react";
 
-import { Thumbs, EffectCreative, Autoplay } from 'swiper';
+import { Thumbs, EffectCreative, Autoplay, Mousewheel } from 'swiper';
 import {Swiper, SwiperSlide} from "swiper/react";
+
+import {Accordion, AccordionSummary, AccordionDetails} from '@material-ui/core';
 
 import "swiper/css";
 import "swiper/css/effect-creative"
@@ -9,13 +11,14 @@ import "swiper/css/effect-creative"
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import {Section} from "../shared";
-import {BenefitsStroked} from "../shared/Svg";
+import {BenefitsStroked, ChevronDown} from "../shared/Svg";
 import Image from "next/image";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import {makeStyles} from "@material-ui/core";
 import theme from "../../src/assets/theme";
+import Link from "next/link";
 
 const useStyles = makeStyles({
   benefits: {
@@ -25,6 +28,9 @@ const useStyles = makeStyles({
   benefitsTitleWrapper: {
     position: 'relative',
     height: '100%',
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
+    },
     '&::before': {
       content: '""',
       position: 'absolute',
@@ -33,26 +39,22 @@ const useStyles = makeStyles({
       backgroundColor: theme.palette.primary.main,
       width: 'calc(100% + 2600px)',
       height: '100%',
-      [theme.breakpoints.down('md')]: {
-        display: 'none',
-      },
     },
   },
   benefitsStroked: {
     '& svg': {
       position: 'absolute',
       width: 124,
-      height: 641,
+      height: 'auto',
       top: '50%',
       left: '-2.8rem',
       transform: 'translateY(-50%)',
 
       [theme.breakpoints.down(1899)]: {
-        left: '-1.7rem',
-        width: '64px',
-        height: '391px',
+        width: 90,
       },
-      [theme.breakpoints.down(1700)]: {
+
+      [theme.breakpoints.down('md')]: {
         display: 'none',
       },
     }
@@ -60,8 +62,6 @@ const useStyles = makeStyles({
   benefitsPicture: {
     position: 'relative',
     height: '100%',
-    maxWidth: 313,
-    minHeight: 542,
     '&::before': {
       content: '""',
       position: 'absolute',
@@ -101,13 +101,16 @@ const useStyles = makeStyles({
     color: '#767676',
   },
   benefitsPoints: {
-    // display: 'flex',
-    // flexDirection: 'column',
-    height: '100%',
+    minHeight: 400,
     marginTop: '10px',
 
     [theme.breakpoints.down('lg')]: {
       paddingLeft: '1.5rem',
+      minHeight: 350,
+    },
+
+    [theme.breakpoints.down('md')]: {
+      minHeight: 300,
     },
     '& $benefitsPoint.swiper-slide-thumb-active': {
       color: theme.palette.primary.main,
@@ -155,16 +158,90 @@ const useStyles = makeStyles({
       }
     }
   },
+
+  desktop: {
+    [theme.breakpoints.down(768)]: {
+      display: 'none',
+    },
+  },
+  mobile: {
+    color: '#fff',
+    [theme.breakpoints.up(768)]: {
+      display: 'none',
+    },
+    '& .MuiAccordionSummary-content, & .MuiAccordionSummary-content.Mui-expanded': {
+      margin: 0,
+    },
+    '& .MuiAccordionSummary-expandIcon': {
+      position: 'relative',
+      width: 30,
+      height: 30,
+      padding: 0,
+      '& svg': {
+        marginRight: 0,
+      },
+      '& .MuiTouchRipple-root': {
+        display: 'none',
+      },
+    },
+    '& .MuiIconButton-edgeEnd': {
+      marginRight: 0,
+    },
+    '& .MuiAccordion-root.Mui-expanded': {
+      margin: 0,
+    },
+  },
+  accordion: {},
+  accordionTitle: {
+    color: '#AEAEAE',
+    fontSize: '1.1rem',
+    backgroundColor: '#454545',
+    padding: '0.7rem',
+    // transition: '.3s all ease',
+    borderBottom: '1px solid #5C5C5C',
+    minHeight: 'unset !important',
+    '&.Mui-expanded': {
+      color: '#fff',
+      backgroundColor: theme.palette.primary.main,
+    },
+  },
+  accordionTitleIn: {
+    fontSize: '1.1rem',
+    fontFamily: 'Oakes-Medium',
+  },
+  accordionIn: {
+    backgroundColor: '#525252',
+    padding: '1rem',
+    display: 'flex',
+    color: '#fff',
+    flexDirection: 'column',
+  },
+  accordionText: {
+    marginBottom: '1rem',
+  },
 });
 
 export const Benefits = () => {
   const cls = useStyles();
   // store thumbs swiper instance
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const swiperParams = {
+    mousewheel: {
+      eventsTarget: ".makeStyles-benefits-77",
+      releaseOnEdges: true,
+    },
+  };
+  const [expanded, setExpanded] = React.useState('panel1');
+
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
+
   return (
       <section className={cls.benefits}>
         <Container>
-          <Grid container>
+          {/* desktop version */}
+          <Grid container className={cls.desktop}>
             <Grid item md={false} lg={3}>
               <Section classes={cls.benefitsTitleWrapper} small>
                 <div className={cls.benefitsStroked}>
@@ -175,8 +252,10 @@ export const Benefits = () => {
                       src="/img/main/benefitsPicture.png"
                       alt="benefits device"
                       objectFit="contain"
-                      layout="fill"
+                      layout="responsive"
                       priority={true}
+                      width={313}
+                      height={542}
                   />
                 </div>
               </Section>
@@ -188,10 +267,10 @@ export const Benefits = () => {
                     What We Do
                   </Typography>
                 </div>
-                <Grid container>
+                <Grid container className={cls.container}>
                   <Grid item xs={12} sm={7} lg={7}>
                     <Swiper
-                        modules={[Thumbs, EffectCreative, Autoplay]}
+                        modules={[Thumbs, EffectCreative, Autoplay, Mousewheel]}
                         thumbs={{ swiper: thumbsSwiper }}
                         effect={'creative'}
                         creativeEffect={{
@@ -212,23 +291,25 @@ export const Benefits = () => {
                             ]
                           }
                         }}
-                        // breakpoints={{
-                        //   // when window width is >= 640px
-                        //   0: {
-                        //     autoHeight: true,
-                        //   },
-                        //   // when window width is >= 768px
-                        //   768: {
-                        //     autoplay: {
-                        //       delay: 2500,
-                        //       disableOnInteraction: 'true',
-                        //     },
-                        //   }
-                        // }}
                         speed={1000}
                         spaceBetween={30}
-                        loop={true}
+                        autoHeight="true"
                         className={cls.benefitsCardSlider}
+                        {...swiperParams}
+                        onBeforeInit={
+                          (swiper) => {
+                            setTimeout(() => {
+                              swiper.params.mousewheel.releaseOnEdges = false;
+                            }, 500)
+                          }
+                        }
+                        onReachEnd={
+                          (swiper) => {
+                            setTimeout(() => {
+                              swiper.params.mousewheel.releaseOnEdges = true;
+                            }, 750)
+                          }
+                        }
                     >
                       <SwiperSlide>
                         <div className={cls.benefitsCard}>
@@ -240,12 +321,18 @@ export const Benefits = () => {
                               Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu.
                             </Typography>
                           </Box>
-                          <Button
-                              variant='contained'
-                              color='primary'
+                          <Link
+                              href={'/contacts#feedback'}
                           >
-                            Start a project
-                          </Button>
+                            <a>
+                              <Button
+                                  variant='contained'
+                                  color='primary'
+                              >
+                                Start a project
+                              </Button>
+                            </a>
+                          </Link>
                         </div>
                       </SwiperSlide>
                       <SwiperSlide>
@@ -258,12 +345,18 @@ export const Benefits = () => {
                               Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. minim dolor ipsum
                             </Typography>
                           </Box>
-                          <Button
-                              variant='contained'
-                              color='primary'
+                          <Link
+                              href={'/contacts#feedback'}
                           >
-                            Start a project
-                          </Button>
+                            <a>
+                              <Button
+                                  variant='contained'
+                                  color='primary'
+                              >
+                                Start a project
+                              </Button>
+                            </a>
+                          </Link>
                         </div>
                       </SwiperSlide>
                       <SwiperSlide>
@@ -276,12 +369,18 @@ export const Benefits = () => {
                               Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu.
                             </Typography>
                           </Box>
-                          <Button
-                              variant='contained'
-                              color='primary'
+                          <Link
+                              href={'/contacts#feedback'}
                           >
-                            Start a project
-                          </Button>
+                            <a>
+                              <Button
+                                  variant='contained'
+                                  color='primary'
+                              >
+                                Start a project
+                              </Button>
+                            </a>
+                          </Link>
                         </div>
                       </SwiperSlide>
                       <SwiperSlide>
@@ -292,14 +391,22 @@ export const Benefits = () => {
                           <Box sx={{mb: '1.8rem'}}>
                             <Typography className={cls.benefitsCardDescription}>
                               Velit enim nulla nisi deserunt minim dolor ipsum eu.
+                              Velit enim nulla nisi deserunt minim dolor ipsum eu.
+                              Velit enim nulla nisi deserunt minim dolor ipsum eu.
                             </Typography>
                           </Box>
-                          <Button
-                              variant='contained'
-                              color='primary'
+                          <Link
+                              href={'/contacts#feedback'}
                           >
-                            Start a project
-                          </Button>
+                            <a>
+                              <Button
+                                  variant='contained'
+                                  color='primary'
+                              >
+                                Start a project
+                              </Button>
+                            </a>
+                          </Link>
                         </div>
                       </SwiperSlide>
                       <SwiperSlide>
@@ -312,12 +419,18 @@ export const Benefits = () => {
                               Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu.
                             </Typography>
                           </Box>
-                          <Button
-                              variant='contained'
-                              color='primary'
+                          <Link
+                              href={'/contacts#feedback'}
                           >
-                            Start a project
-                          </Button>
+                            <a>
+                              <Button
+                                  variant='contained'
+                                  color='primary'
+                              >
+                                Start a project
+                              </Button>
+                            </a>
+                          </Link>
                         </div>
                       </SwiperSlide>
                     </Swiper>
@@ -332,6 +445,7 @@ export const Benefits = () => {
                         className={cls.benefitsPoints}
                         direction={'vertical'}
                         autoHeight="true"
+                        spaceBetween={7}
                     >
                       <SwiperSlide className={cls.benefitsPoint}>
                         <span>We make dating business tasks</span>
@@ -354,6 +468,146 @@ export const Benefits = () => {
               </Section>
             </Grid>
           </Grid>
+          {/* mobile version */}
+          <Section small classes={cls.mobile}>
+            <div className={cls.mobileTitle}>
+              <Typography variant={'h2'}>
+                What We Do
+              </Typography>
+            </div>
+            <div>
+              <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+                <AccordionSummary
+                    expandIcon={<ChevronDown />}
+                    aria-controls="panel1a-content"
+                    className={cls.accordionTitle}
+                >
+                  <Typography className={cls.accordionTitleIn}>We make dating business tasks</Typography>
+                </AccordionSummary>
+                <AccordionDetails className={cls.accordionIn}>
+                  <Typography className={cls.accordionText}>
+                    Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu.
+                  </Typography>
+                  <Link
+                      href={'/contacts#feedback'}
+                  >
+                    <a>
+                      <Button
+                          variant='contained'
+                          color='primary'
+                      >
+                        Start a project
+                      </Button>
+                    </a>
+                  </Link>
+                </AccordionDetails>
+              </Accordion>
+              <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+                <AccordionSummary
+                    expandIcon={<ChevronDown />}
+                    aria-controls="panel1a-content"
+                    className={cls.accordionTitle}
+                >
+                  <Typography className={cls.accordionTitleIn}>We make apps for real dates</Typography>
+                </AccordionSummary>
+                <AccordionDetails className={cls.accordionIn}>
+                  <Typography className={cls.accordionText}>
+                    Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu.
+                  </Typography>
+                  <Link
+                      href={'/contacts#feedback'}
+                  >
+                    <a>
+                      <Button
+                          variant='contained'
+                          color='primary'
+                      >
+                        Start a project
+                      </Button>
+                    </a>
+                  </Link>
+                </AccordionDetails>
+              </Accordion>
+              <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+                <AccordionSummary
+                    expandIcon={<ChevronDown />}
+                    aria-controls="panel1a-content"
+                    className={cls.accordionTitle}
+                >
+                  <Typography className={cls.accordionTitleIn}>We make landings and templates</Typography>
+                </AccordionSummary>
+                <AccordionDetails className={cls.accordionIn}>
+                  <Typography className={cls.accordionText}>
+                    Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu.
+                  </Typography>
+                  <Link
+                      href={'/contacts#feedback'}
+                  >
+                    <a>
+                      <Button
+                          variant='contained'
+                          color='primary'
+                      >
+                        Start a project
+                      </Button>
+                    </a>
+                  </Link>
+                </AccordionDetails>
+              </Accordion>
+              <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
+                <AccordionSummary
+                    expandIcon={<ChevronDown />}
+                    aria-controls="panel1a-content"
+                    className={cls.accordionTitle}
+                >
+                  <Typography className={cls.accordionTitleIn}>We made mail inboxes and domains</Typography>
+                </AccordionSummary>
+                <AccordionDetails className={cls.accordionIn}>
+                  <Typography className={cls.accordionText}>
+                    Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu.
+                  </Typography>
+                  <Link
+                      href={'/contacts#feedback'}
+                  >
+                    <a>
+                      <Button
+                          variant='contained'
+                          color='primary'
+                      >
+                        Start a project
+                      </Button>
+                    </a>
+                  </Link>
+                </AccordionDetails>
+              </Accordion>
+              <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
+                <AccordionSummary
+                    expandIcon={<ChevronDown />}
+                    aria-controls="panel1a-content"
+                    className={cls.accordionTitle}
+                >
+                  <Typography className={cls.accordionTitleIn}>We know your business needs</Typography>
+                </AccordionSummary>
+                <AccordionDetails className={cls.accordionIn}>
+                  <Typography className={cls.accordionText}>
+                    Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu.
+                  </Typography>
+                  <Link
+                      href={'/contacts#feedback'}
+                  >
+                    <a>
+                      <Button
+                          variant='contained'
+                          color='primary'
+                      >
+                        Start a project
+                      </Button>
+                    </a>
+                  </Link>
+                </AccordionDetails>
+              </Accordion>
+            </div>
+          </Section>
         </Container>
       </section>
   )

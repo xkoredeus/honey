@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import theme from "../../src/assets/theme";
 import {makeStyles} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
+import Link from "next/link";
 
 const useStyles = makeStyles({
   workCard: {
@@ -48,7 +49,7 @@ const useStyles = makeStyles({
       width: 203,
       height: '60%',
     },
-    [theme.breakpoints.down(612)]: {
+    [theme.breakpoints.down('sm')]: {
       display: 'none',
     },
 
@@ -192,12 +193,19 @@ export const WorkList = () => {
                     Aliquam porta nisl dolor, molestie pellentesque elit molestie in. Morbi metus neque, elementum ullamcorper hendrerit eget, tincidunt et nisi. Sed magna nunc, consequat vel aliquam vitae, porta ac mi. Integer commodo sapien lacus, nec interdum nisi vehicula aliquam. Aliquam enim lorem,
                   </Typography>
                 </Box>
-                <Button
-                    variant='contained'
-                    color='secondary'
+                <Link
+                    href={'/finde-dein-abenteuer'}
                 >
-                  See full case
-                </Button>
+                  <a>
+                    <Button
+                        variant='contained'
+                        color='secondary'
+                    >
+                      See full case
+                    </Button>
+                  </a>
+                </Link>
+
               </div>
             </div>
           </Grid>
@@ -316,12 +324,18 @@ export const WorkList = () => {
                     Aliquam porta nisl dolor, molestie pellentesque elit molestie in. Morbi metus neque, elementum ullamcorper hendrerit eget, tincidunt et nisi. Sed magna nunc, consequat vel aliquam vitae, porta ac mi. Integer commodo sapien lacus, nec interdum nisi vehicula aliquam. Aliquam enim lorem,
                   </Typography>
                 </Box>
-                <Button
-                    variant='contained'
-                    color='secondary'
+                <Link
+                    href={'/finde-dein-abenteuer'}
                 >
-                  See full case
-                </Button>
+                  <a>
+                    <Button
+                        variant='contained'
+                        color='secondary'
+                    >
+                      See full case
+                    </Button>
+                  </a>
+                </Link>
               </div>
             </div>
           </Grid>

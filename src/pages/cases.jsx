@@ -5,6 +5,7 @@ import {makeStyles, Typography} from "@material-ui/core";
 import theme from "../assets/theme";
 import {WorkList} from "../../components/main/WorkList";
 import Container from "@material-ui/core/Container";
+import {CasesPageStroked} from "../../components/shared/Svg";
 
 const useStyles = makeStyles({
   offer: {
@@ -15,7 +16,24 @@ const useStyles = makeStyles({
     },
   },
   list: {
+    position: 'relative',
     paddingTop: '1rem',
+  },
+  stroked: {
+    '& svg': {
+      position: 'absolute',
+      width: 90,
+      height: 'auto',
+      right: 0,
+      top: '50%',
+      transform: 'translateY(-50%)',
+      [theme.breakpoints.down(1899)]: {
+        width: 80,
+      },
+      [theme.breakpoints.down('md')]: {
+        display: 'none',
+      },
+    }
   }
 })
 
@@ -28,10 +46,15 @@ const CasesPage = () => {
           <div className={cls.offer}>
             <Typography variant={'h1'} align="center">Our cases</Typography>
           </div>
-          <Section classes={cls.list}>
-            <WorkList />
-          </Section>
         </Container>
+        <Section classes={cls.list}>
+          <Container>
+            <WorkList />
+          </Container>
+          <div className={cls.stroked}>
+            <CasesPageStroked/>
+          </div>
+        </Section>
         <Feedback backgroundDark/>
       </Layout>
   )

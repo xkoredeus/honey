@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {makeStyles} from "@material-ui/core";
 import Link from "next/link";
 import Container from "@material-ui/core/Container";
@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import {ArrowNext} from "./Svg";
 import theme from "../../src/assets/theme";
 import cx from "clsx";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles({
   root: {
@@ -15,16 +16,22 @@ const useStyles = makeStyles({
     left: 0,
     top: 0,
     zIndex: 3,
-    paddingTop: '24px',
-    [theme.breakpoints.down('md')]: {
-      paddingTop: '1rem',
-    },
   },
   rootIn: {
     position: 'relative',
     width: '100%',
     display: 'flex',
     alignItems: 'center',
+    paddingTop: '24px',
+    paddingBottom: '24px',
+    [theme.breakpoints.down('md')]: {
+      paddingTop: '1rem',
+      paddingBottom: '1rem',
+    },
+    [theme.breakpoints.down('xs')]: {
+      paddingTop: '0.5rem',
+      paddingBottom: '0.5rem',
+    },
 
     [theme.breakpoints.down('xs')]: {
       height: 50,
@@ -155,11 +162,13 @@ const useStyles = makeStyles({
 
     [theme.breakpoints.down('xs')]: {
       position: 'absolute',
-      top: '-1rem',
+      top: '0',
       right: '100%',
       background: theme.palette.primary.gray,
       paddingTop: 80,
-      paddingBottom: '2.5rem'
+      paddingBottom: '2.5rem',
+      height: '100vh',
+      minHeight: 450,
     },
     '&.menuActive': {
       right: 0,
@@ -198,23 +207,23 @@ const useStyles = makeStyles({
     position: 'relative',
     display: 'inline-block',
     width: '100%',
-    height: 1,
+    height: 2,
     backgroundColor: theme.palette.text.primary,
     transition: '.5s all ease',
     '&::before, &::after': {
       position: 'absolute',
       content: '""',
       width: '100%',
-      height: 1,
+      height: 2,
       left: 0,
       backgroundColor: theme.palette.text.primary,
       transition: '.5s all ease',
     },
     '&::before': {
-      top: '-10px',
+      top: '-8px',
     },
     '&::after': {
-      bottom: '-10px',
+      bottom: '-8px',
     }
   },
 })
@@ -222,6 +231,15 @@ const useStyles = makeStyles({
 export const Header = () => {
   const cls = useStyles();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setMenuOpen(false);
+    // clean up code
+    window.removeEventListener('scroll', onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
       <header className={cls.root}>
         <div className={cls.rootIn}>
@@ -235,14 +253,14 @@ export const Header = () => {
             <Container className={cls.headerIn}>
               <nav className={cls.nav}>
                 <span className={cls.navLinkWrapper}>
-                  <Link href={'/about'}>
-                    <a className={cls.navLink}>
+                  <div>
+                    <span className={cls.navLink}>
                       <span>About us</span>
                       <svg className={cls.arr} width="10" height="5" viewBox="0 0 10 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M0 0L5 5L10 0H0Z" fill="#2A2A2A"/>
                       </svg>
-                    </a>
-                  </Link>
+                    </span>
+                  </div>
                   <span className={cls.navLinkDropdown}>
                     <span className={cls.navLinkDropdownIn}>
                       <Link href={'/team'}>
@@ -277,12 +295,18 @@ export const Header = () => {
                   </Link>
                 </span>
               </nav>
-              <Button
-                  variant='contained'
-                  color='primary'
+              <Link
+                  href={'/contacts#feedback'}
               >
-                Start a project
-              </Button>
+                <a>
+                  <Button
+                      variant='contained'
+                      color='primary'
+                  >
+                    Start a project
+                  </Button>
+                </a>
+              </Link>
             </Container>
           </div>
         </div>

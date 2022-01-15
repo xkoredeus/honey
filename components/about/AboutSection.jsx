@@ -7,6 +7,7 @@ import React from "react";
 import theme from "../../src/assets/theme";
 
 import cx from "clsx";
+import Link from "next/link";
 
 const useStyles = makeStyles({
   root: {
@@ -215,12 +216,18 @@ export const AboutSection = ({rtl = false, title, text, imageSrc, stroked}) => {
                     {text}
                   </Typography>
                 </Box>
-                <Button
-                    variant='contained'
-                    color='primary'
+                <Link
+                    href={'/contacts#feedback'}
                 >
-                  Start a project
-                </Button>
+                  <a>
+                    <Button
+                        variant='contained'
+                        color='primary'
+                    >
+                      Start a project
+                    </Button>
+                  </a>
+                </Link>
               </div>
             </Grid>
             <Grid item md={6} lg={5} className={cls.pictureWrapper}>

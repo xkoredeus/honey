@@ -14,6 +14,7 @@ import theme from "../../src/assets/theme";
 import 'swiper/css';
 import "swiper/css/effect-fade"
 import "swiper/css/pagination"
+import Link from "next/link";
 
 const useStyles = makeStyles({
   mainScreen: {
@@ -29,6 +30,11 @@ const useStyles = makeStyles({
     },
     [theme.breakpoints.down('sm')]: {
       paddingTop: '70px',
+    },
+    [theme.breakpoints.down('xs')]: {
+      height: '100vh',
+      minHeight: 400,
+      paddingTop: 51,
     },
   },
   mainScreenContainer: {
@@ -77,6 +83,9 @@ const useStyles = makeStyles({
   },
   mainScreenSlider: {
     height: '100%',
+    [theme.breakpoints.down('xs')]: {
+      display: 'none',
+    },
   },
   mainScreenItem: {
     position: 'relative',
@@ -174,6 +183,9 @@ const useStyles = makeStyles({
         width: 320,
         height: 105,
       },
+      [theme.breakpoints.down('lg')]: {
+        top: 100,
+      },
       [theme.breakpoints.down('sm')]: {
         display: 'none',
       },
@@ -243,7 +255,7 @@ export const MainScreen = () => {
       <section className={cls.mainScreen}>
         <Container className={cls.mainScreenContainer}>
           <Grid container className={cls.mainScreenContainer}>
-            <Grid item xs={12} md={7} className={cls.height}>
+            <Grid item xs={false} sm={12} md={7} className={cls.height}>
               <div className={cls.mainScreenStroked}>
                 <MainScreenStroked />
               </div>
@@ -317,12 +329,18 @@ export const MainScreen = () => {
                 <Typography variant={'h1'} className="color-white">
                   <span className="color-red">Enter the new world</span> of datings solutions.
                 </Typography>
-                <Button
-                    variant='contained'
-                    color='primary'
+                <Link
+                    href={'/contacts#feedback'}
                 >
-                  Start a project
-                </Button>
+                  <a>
+                    <Button
+                        variant='contained'
+                        color='primary'
+                    >
+                      Start a project
+                    </Button>
+                  </a>
+                </Link>
               </div>
             </Grid>
           </Grid>

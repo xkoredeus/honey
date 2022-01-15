@@ -22,18 +22,23 @@ const useStyles = makeStyles({
       marginTop: '2rem',
       gridGap: '2rem',
       gridAutoRows: 'calc(250px - 1rem)',
+      gridTemplateColumns: 'repeat(3, 1fr)',
     },
 
     [theme.breakpoints.down('md')]: {
-      marginTop: '2rem',
-      gridAutoRows: 'calc(180px - 0.5rem)',
+      gridTemplateColumns: 'repeat(2, 1fr)',
+      marginTop: '1rem',
+      gridAutoRows: 'auto',
       gridGap: '1rem',
     },
 
     [theme.breakpoints.down('sm')]: {
-      gridAutoRows: 'auto',
+      gridGap: '0.5rem',
       gridTemplateColumns: 'repeat(2, 1fr)',
-      gridGap: '1rem',
+    },
+
+    [theme.breakpoints.down('xs')]: {
+      gridTemplateColumns: '1fr',
     },
 
     '& > *:nth-child(1)': {
@@ -57,17 +62,26 @@ const useStyles = makeStyles({
     '& > *:nth-child(7)': {
       gridColumn: '2/3',
       gridRow: '5/7',
+
+      [theme.breakpoints.down('md')]: {
+        gridRow: 'auto',
+      },
     },
 
 
-    [theme.breakpoints.down('sm')]: {
-      '& > *':{
+    '& > *':{
+      [theme.breakpoints.down('md')]: {
         gridRow: 'auto !important',
         gridColumn: 'auto !important',
-      },
-      '& > *:nth-child(even)': {
-        transform: 'translateY(180px)',
       }
+    },
+    '& > *:nth-child(even)': {
+      [theme.breakpoints.down('md')]: {
+        transform: 'translateY(180px)',
+      },
+      [theme.breakpoints.down('xs')]: {
+        transform: 'translateY(0px)',
+      },
     }
   },
   firstStroked: {
@@ -79,25 +93,24 @@ const useStyles = makeStyles({
       height: 390,
       [theme.breakpoints.down(1899)]: {
         width: 72,
-        height: 239,
       },
-      [theme.breakpoints.down(1700)]: {
+      [theme.breakpoints.down('md')]: {
         display: 'none',
       },
     },
   },
   secondStroked: {
     position: 'absolute',
-    top: '30%',
+    top: '50%',
     right: 0,
+    transform: 'translateY(-50%)',
     '& svg': {
       width: 145,
-      height: 1261,
+      height: 'auto',
       [theme.breakpoints.down(1899)]: {
         width: 72,
-        height: 550,
       },
-      [theme.breakpoints.down(1700)]: {
+      [theme.breakpoints.down('md')]: {
         display: 'none',
       },
     },

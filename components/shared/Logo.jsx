@@ -12,6 +12,12 @@ const useStyles = makeStyles({
     gridTemplateRows: 'repeat(2, 19px)',
     gridGap: '8px',
     textTransform: 'uppercase',
+
+    [theme.breakpoints.down('xs')]: {
+      gridTemplateColumns: '35px 1fr',
+      gridTemplateRows: 'repeat(2, 13px)',
+    },
+
     '& #logoHeart': {
       transition: '1s all ease',
       transformOrigin: 'center center',
@@ -28,6 +34,13 @@ const useStyles = makeStyles({
   },
   svg: {
     gridRow: '1/3',
+    width: 38,
+    height: 38,
+
+    [theme.breakpoints.down('xs')]: {
+      width: 34,
+      height: 34,
+    },
   },
   title: {
     fontSize: '1.75rem',
@@ -35,6 +48,10 @@ const useStyles = makeStyles({
     fontWeight: 'bold',
     lineHeight: '1.2',
     color: theme.palette.primary.main,
+
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1.45rem',
+    },
   },
   titleDark: {
     color: theme.palette.text.primary,
@@ -43,6 +60,11 @@ const useStyles = makeStyles({
     fontFamily: 'Oakes-Light',
     fontSize: '0.665rem',
     lineHeight: '1.7',
+
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '0.565rem',
+      lineHeight: '2',
+    },
   },
   whiteSubtitle: {
     color: '#fff',
@@ -54,7 +76,7 @@ export const Logo = ({footer, darkCircle}) => {
   return (
     <Link href="/">
       <a className={cls.root}>
-        <svg className={cls.svg} width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg className={cls.svg} viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clipPath="url(#clipLogo)">
             <path d="M21.8168 0C13.1539 0 5.63721 7.71415 5.63721 16.1807C5.63721 25.1026 12.8947 32.3613 21.8168 32.3613C30.7385 32.3613 37.9983 25.1026 37.9983 16.1807C37.9983 7.25874 30.7385 0 21.8168 0Z" fill={`${darkCircle ? '#2A2A2A' : '#D2595D'}`}/>
             <g id="logoHeart">

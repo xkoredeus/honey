@@ -4,6 +4,8 @@ import {makeStyles,Container} from "@material-ui/core";
 
 import {Logo} from "./Logo";
 import theme from "../../src/assets/theme";
+import Grid from "@material-ui/core/Grid";
+import {Mowe} from "./Svg";
 
 const useStyles = makeStyles({
   root: {
@@ -18,7 +20,7 @@ const useStyles = makeStyles({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingTop: '1.875rem',
-    paddingBottom: '1.875rem',
+    paddingBottom: '1rem',
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
       alignItems: 'flex-start',
@@ -54,6 +56,34 @@ const useStyles = makeStyles({
     '&:hover': {
       opacity: '.7',
     }
+  },
+  credentialsWrapper: {
+    paddingBottom: 'calc(15px + 0.875rem)',
+  },
+  credentials: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    color: '#fff',
+    transform: 'scale(0.9)',
+
+    [theme.breakpoints.down('md')]: {
+      justifyContent: 'flex-start',
+    },
+
+    '& span': {
+      marginRight: 8,
+      marginBottom: '-6px',
+
+      [theme.breakpoints.down('md')]: {
+        marginRight: 5,
+        marginBottom: '-4px',
+      },
+    },
+    '& svg': {
+      width: 80,
+      height: 18,
+    },
   }
 })
 
@@ -80,6 +110,13 @@ export const Footer = ({backgroundRed}) => {
             <Link href={'/contacts'}>Contact Us</Link>
           </div>
         </nav>
+      </Container>
+      <Container>
+        <Grid container align={'center'} justifyContent={'center'} className={cls.credentialsWrapper}>
+          <a href="https://moewe.studio/" target="_blank" rel="noreferrer" className={cls.credentials}>
+            <span>Designed by</span> <Mowe />
+          </a>
+        </Grid>
       </Container>
     </footer>
 )}

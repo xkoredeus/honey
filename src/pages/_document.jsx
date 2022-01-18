@@ -12,8 +12,8 @@ export default class CustomDocument extends Document{
         return (
             <Html lang="en">
                 <Head>
-                    <title>My page</title>
-                    <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+                    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+                    <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
                     {/* PWA primary color */}
                     <meta name="theme-color" content={theme.palette.primary.main} />
                     <link href="/fonts/stylesheet.css" rel="stylesheet"/>

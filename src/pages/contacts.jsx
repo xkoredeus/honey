@@ -5,6 +5,7 @@ import {Container, Grid, makeStyles, Typography} from "@material-ui/core";
 import theme from "../assets/theme";
 import Image from "next/image";
 import {ContactsStroked} from "../../components/shared/Svg";
+import Head from "next/head";
 
 const useStyles = makeStyles({
   height: {
@@ -119,7 +120,11 @@ const useStyles = makeStyles({
 const ContactsPage = () => {
   const cls = useStyles();
   return (
-      <Layout>
+      <>
+        <Head>
+          <title>Contact us - Honey</title>
+        </Head>
+        <Layout footerRed={false}>
         <section className={cls.offer}>
           <Container className={cls.height}>
             <Grid container className={cls.height}>
@@ -152,6 +157,7 @@ const ContactsPage = () => {
           <Feedback showCheckboxes={true}/>
         </div>
       </Layout>
+      </>
   )
 }
 

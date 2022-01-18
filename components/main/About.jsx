@@ -28,6 +28,7 @@ const useStyles = makeStyles({
     [theme.breakpoints.down('sm')]: {
       order: 2,
       zIndex: 2,
+      paddingRight: 0,
     },
 
     '&::before': {
@@ -224,7 +225,7 @@ const useStyles = makeStyles({
       height: '70%',
       backgroundColor: '#B03C3F',
       top: '1rem',
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         width: '100%',
         height: 1,
         top: '100%',

@@ -1,12 +1,6 @@
-import React, {useState, useRef} from "react";
-
-import { Thumbs, EffectCreative, Autoplay, Mousewheel } from 'swiper';
-import {Swiper, SwiperSlide} from "swiper/react";
+import React, {useEffect, useRef, useState} from "react";
 
 import {Accordion, AccordionSummary, AccordionDetails} from '@material-ui/core';
-
-import "swiper/css";
-import "swiper/css/effect-creative"
 
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
@@ -19,6 +13,11 @@ import Button from "@material-ui/core/Button";
 import {makeStyles} from "@material-ui/core";
 import theme from "../../src/assets/theme";
 import Link from "next/link";
+
+import cx from "clsx";
+
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 const useStyles = makeStyles({
   benefits: {
@@ -72,10 +71,17 @@ const useStyles = makeStyles({
       borderRadius: 40,
       boxShadow: '-14px 11px 19px 12px #00000052',
       transform: 'translate(-50%, -50%)',
+      [theme.breakpoints.down(1700)]: {
+        height: '80%',
+      },
     }
   },
   benefitsTitle: {
     color: '#fff',
+  },
+  benefitsCardList: {
+    position: 'relative',
+    minHeight: 500,
   },
   benefitsCardWrapper: {
     paddingLeft: '5rem',
@@ -87,15 +93,24 @@ const useStyles = makeStyles({
     },
   },
   benefitsCard: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: '3.75rem',
+    visibility: 'hidden',
+    opacity: 0,
     [theme.breakpoints.down(1600)]: {
       padding: '2.5rem',
     },
     [theme.breakpoints.down(1280)]: {
       padding: '1.5rem',
     },
+  },
+  benefitsCardActive: {
+    visibility: 'visible',
+    opacity: 1,
   },
   benefitsCardDescription: {
     color: '#767676',
@@ -111,16 +126,6 @@ const useStyles = makeStyles({
 
     [theme.breakpoints.down('md')]: {
       minHeight: 300,
-    },
-    '& $benefitsPoint.swiper-slide-thumb-active': {
-      color: theme.palette.primary.main,
-      '&::before': {
-        width: 16,
-        backgroundColor: theme.palette.primary.main,
-      },
-      '& span': {
-        transform: 'translateX(0.7rem)',
-      }
     },
 
     [theme.breakpoints.down('xs')]: {
@@ -156,7 +161,20 @@ const useStyles = makeStyles({
       '&::before': {
         width: 16,
       }
+    },
+    '&:not(:last-child)': {
+      marginBottom: '2rem',
     }
+  },
+  benefitsPointActive: {
+    color: theme.palette.primary.main,
+    '&::before': {
+      width: 16,
+      backgroundColor: theme.palette.primary.main,
+    },
+    '& span': {
+      transform: 'translateX(0.7rem)',
+    },
   },
 
   desktop: {
@@ -191,13 +209,11 @@ const useStyles = makeStyles({
       margin: 0,
     },
   },
-  accordion: {},
   accordionTitle: {
     color: '#AEAEAE',
     fontSize: '1.1rem',
     backgroundColor: '#454545',
     padding: '0.7rem',
-    // transition: '.3s all ease',
     borderBottom: '1px solid #5C5C5C',
     minHeight: 'unset !important',
     '&.Mui-expanded': {
@@ -223,22 +239,43 @@ const useStyles = makeStyles({
 
 export const Benefits = () => {
   const cls = useStyles();
-  // store thumbs swiper instance
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  const swiperParams = {
-    mousewheel: {
-      eventsTarget: ".makeStyles-benefits-77",
-      releaseOnEdges: true,
-    },
-  };
   const [expanded, setExpanded] = React.useState('panel1');
-
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
 
+  gsap.registerPlugin(ScrollTrigger);
+  // const [step, setStep] = useState(1);
+  const ref = useRef(null);
+  const tween = useRef(null);
+
+  useEffect(() => {
+    const tl1 = gsap.timeline().to(ref.current.querySelector('.first-card'), {opacity: 0, visibility: 'hidden'});
+    const tl2 = gsap.timeline().to(ref.current.querySelector('.second-card'), {opacity: 1, visibility: 'visible'});
+    // const tl2 = gsap.timeline().call(setStep( 2), [], '+=5');
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ref.current,
+        start: "top top",
+        end: "bottom center",
+        toggleActions: 'play none none reverse',
+        markers: true,
+        pin: true,
+      },
+    });
+
+    tl.add(tl1, '+=2')
+    tl.add(tl2, '+=2.5')
+    // tl.add(tl2, '+=5')
+
+    // tl.add(gsap.delayedCall(0, setStep, 2), '+=15')
+    // tl.fromTo(setStep, 1, 2);
+  }, [])
+
+
+
   return (
-      <section className={cls.benefits}>
+      <section className={cls.benefits} ref={ref}>
         <Container>
           {/* desktop version */}
           <Grid container className={cls.desktop}>
@@ -269,200 +306,142 @@ export const Benefits = () => {
                 </div>
                 <Grid container className={cls.container}>
                   <Grid item xs={12} sm={7} lg={7}>
-                    <Swiper
-                        modules={[Thumbs, EffectCreative, Autoplay, Mousewheel]}
-                        thumbs={{ swiper: thumbsSwiper }}
-                        effect={'creative'}
-                        creativeEffect={{
-                          "prev": {
-                            "shadow": true,
-                            "translate": [
-                              0,
-                              0,
-                              -400
-                            ],
-                            "opacity": 0
-                          },
-                          "next": {
-                            "translate": [
-                              "102%",
-                              0,
-                              0
-                            ]
-                          }
-                        }}
-                        speed={1000}
-                        spaceBetween={30}
-                        autoHeight="true"
-                        className={cls.benefitsCardSlider}
-                        {...swiperParams}
-                        onBeforeInit={
-                          (swiper) => {
-                            setTimeout(() => {
-                              swiper.params.mousewheel.releaseOnEdges = false;
-                            }, 500)
-                          }
-                        }
-                        onReachEnd={
-                          (swiper) => {
-                            setTimeout(() => {
-                              swiper.params.mousewheel.releaseOnEdges = true;
-                            }, 750)
-                          }
-                        }
-                    >
-                      <SwiperSlide>
-                        <div className={cls.benefitsCard}>
-                          <Typography variant={'h4'}>
-                            We make dating business tasks
+                    <div className={cls.benefitsCardList}>
+                      <div className={cx(cls.benefitsCard,cls.benefitsCardActive, 'first-card')}>
+                        <Typography variant={'h4'}>
+                          We make dating business tasks
+                        </Typography>
+                        <Box sx={{mb: '1.8rem'}}>
+                          <Typography className={cls.benefitsCardDescription}>
+                            Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu.
                           </Typography>
-                          <Box sx={{mb: '1.8rem'}}>
-                            <Typography className={cls.benefitsCardDescription}>
-                              Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu.
-                            </Typography>
-                          </Box>
-                          <Link
-                              href={'/contacts#feedback'}
-                          >
-                            <a>
-                              <Button
-                                  variant='contained'
-                                  color='primary'
-                              >
-                                Start a project
-                              </Button>
-                            </a>
-                          </Link>
-                        </div>
-                      </SwiperSlide>
-                      <SwiperSlide>
-                        <div className={cls.benefitsCard}>
-                          <Typography variant={'h4'}>
-                            We make dating business tasks
+                        </Box>
+                        <Link
+                            href={'/contacts#feedback'}
+                        >
+                          <a>
+                            <Button
+                                variant='contained'
+                                color='primary'
+                            >
+                              Start a project
+                            </Button>
+                          </a>
+                        </Link>
+                      </div>
+                      <div className={cx(cls.benefitsCard, 'second-card')}>
+                        <Typography variant={'h4'}>
+                          We make dating business tasks
+                        </Typography>
+                        <Box sx={{mb: '1.8rem'}}>
+                          <Typography className={cls.benefitsCardDescription}>
+                            Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. minim dolor ipsum
                           </Typography>
-                          <Box sx={{mb: '1.8rem'}}>
-                            <Typography className={cls.benefitsCardDescription}>
-                              Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. minim dolor ipsum
-                            </Typography>
-                          </Box>
-                          <Link
-                              href={'/contacts#feedback'}
-                          >
-                            <a>
-                              <Button
-                                  variant='contained'
-                                  color='primary'
-                              >
-                                Start a project
-                              </Button>
-                            </a>
-                          </Link>
-                        </div>
-                      </SwiperSlide>
-                      <SwiperSlide>
-                        <div className={cls.benefitsCard}>
-                          <Typography variant={'h4'}>
-                            We make dating business tasks
+                        </Box>
+                        <Link
+                            href={'/contacts#feedback'}
+                        >
+                          <a>
+                            <Button
+                                variant='contained'
+                                color='primary'
+                            >
+                              Start a project
+                            </Button>
+                          </a>
+                        </Link>
+                      </div>
+                      <div className={cx(cls.benefitsCard,'third-card')}>
+                        <Typography variant={'h4'}>
+                          We make dating business tasks
+                        </Typography>
+                        <Box sx={{mb: '1.8rem'}}>
+                          <Typography className={cls.benefitsCardDescription}>
+                            Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu.
                           </Typography>
-                          <Box sx={{mb: '1.8rem'}}>
-                            <Typography className={cls.benefitsCardDescription}>
-                              Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu.
-                            </Typography>
-                          </Box>
-                          <Link
-                              href={'/contacts#feedback'}
-                          >
-                            <a>
-                              <Button
-                                  variant='contained'
-                                  color='primary'
-                              >
-                                Start a project
-                              </Button>
-                            </a>
-                          </Link>
-                        </div>
-                      </SwiperSlide>
-                      <SwiperSlide>
-                        <div className={cls.benefitsCard}>
-                          <Typography variant={'h4'}>
-                            We make dating business tasks
+                        </Box>
+                        <Link
+                            href={'/contacts#feedback'}
+                        >
+                          <a>
+                            <Button
+                                variant='contained'
+                                color='primary'
+                            >
+                              Start a project
+                            </Button>
+                          </a>
+                        </Link>
+                      </div>
+                      <div className={cx(cls.benefitsCard, 'fourth-card')}>
+                        <Typography variant={'h4'}>
+                          We make dating business tasks
+                        </Typography>
+                        <Box sx={{mb: '1.8rem'}}>
+                          <Typography className={cls.benefitsCardDescription}>
+                            Velit enim nulla nisi deserunt minim dolor ipsum eu.
+                            Velit enim nulla nisi deserunt minim dolor ipsum eu.
+                            Velit enim nulla nisi deserunt minim dolor ipsum eu.
                           </Typography>
-                          <Box sx={{mb: '1.8rem'}}>
-                            <Typography className={cls.benefitsCardDescription}>
-                              Velit enim nulla nisi deserunt minim dolor ipsum eu.
-                              Velit enim nulla nisi deserunt minim dolor ipsum eu.
-                              Velit enim nulla nisi deserunt minim dolor ipsum eu.
-                            </Typography>
-                          </Box>
-                          <Link
-                              href={'/contacts#feedback'}
-                          >
-                            <a>
-                              <Button
-                                  variant='contained'
-                                  color='primary'
-                              >
-                                Start a project
-                              </Button>
-                            </a>
-                          </Link>
-                        </div>
-                      </SwiperSlide>
-                      <SwiperSlide>
-                        <div className={cls.benefitsCard}>
-                          <Typography variant={'h4'}>
-                            We make dating business tasks
+                        </Box>
+                        <Link
+                            href={'/contacts#feedback'}
+                        >
+                          <a>
+                            <Button
+                                variant='contained'
+                                color='primary'
+                            >
+                              Start a project
+                            </Button>
+                          </a>
+                        </Link>
+                      </div>
+                      <div className={cx(cls.benefitsCard, 'fifth-card')}>
+                        <Typography variant={'h4'}>
+                          We make dating business tasks
+                        </Typography>
+                        <Box sx={{mb: '1.8rem'}}>
+                          <Typography className={cls.benefitsCardDescription}>
+                            Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu.
                           </Typography>
-                          <Box sx={{mb: '1.8rem'}}>
-                            <Typography className={cls.benefitsCardDescription}>
-                              Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu. minim dolor ipsum eu. Magna excepteur fugiat amet aliquip excepteur officia amet id do non  Velit enim nulla nisi deserunt minim dolor ipsum eu.
-                            </Typography>
-                          </Box>
-                          <Link
-                              href={'/contacts#feedback'}
-                          >
-                            <a>
-                              <Button
-                                  variant='contained'
-                                  color='primary'
-                              >
-                                Start a project
-                              </Button>
-                            </a>
-                          </Link>
-                        </div>
-                      </SwiperSlide>
-                    </Swiper>
+                        </Box>
+                        <Link
+                            href={'/contacts#feedback'}
+                        >
+                          <a>
+                            <Button
+                                variant='contained'
+                                color='primary'
+                            >
+                              Start a project
+                            </Button>
+                          </a>
+                        </Link>
+                      </div>
+                    </div>
                   </Grid>
                   <Grid item xl={1} xs={false}/>
                   <Grid item xs={12} sm={5} lg={5} xl={4}>
-                    <Swiper
-                        modules={[Thumbs]}
-                        watchSlidesProgress
-                        slidesPerView={5}
-                        onSwiper={setThumbsSwiper}
+                    <div
                         className={cls.benefitsPoints}
-                        direction={'vertical'}
-                        autoHeight="true"
-                        spaceBetween={7}
                     >
-                      <SwiperSlide className={cls.benefitsPoint}>
+                      <div className={cx(cls.benefitsPoint,cls.benefitsPointActive,'first-point')}>
                         <span>We make dating business tasks</span>
-                      </SwiperSlide>
-                      <SwiperSlide className={cls.benefitsPoint}>
+                      </div>
+                      <div className={cx(cls.benefitsPoint,'second-point')}>
                         <span>We make apps for real dates</span>
-                      </SwiperSlide>
-                      <SwiperSlide className={cls.benefitsPoint}>
+                      </div>
+                      <div className={cx(cls.benefitsPoint,'third-point')}>
                         <span>We make landings and templates</span>
-                      </SwiperSlide>
-                      <SwiperSlide className={cls.benefitsPoint}>
+                      </div>
+                      <div className={cx(cls.benefitsPoint,'fourth-point')}>
                         <span>We made mail inboxes and domains</span>
-                      </SwiperSlide>
-                      <SwiperSlide className={cls.benefitsPoint}>
+                      </div>
+                      <div className={cx(cls.benefitsPoint,'fifth-point')}>
                         <span>We know your business needs</span>
-                      </SwiperSlide>
-                    </Swiper>
+                      </div>
+                    </div>
                   </Grid>
                 </Grid>
               </Section>

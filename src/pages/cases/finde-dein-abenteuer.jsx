@@ -1,5 +1,5 @@
 import React from "react";
-import theme from "../assets/theme";
+import theme from "../../assets/theme";
 import cx from "clsx";
 
 import {Container, Grid, makeStyles, Typography} from "@material-ui/core";
@@ -13,10 +13,10 @@ import {
   Process,
   ReactLogo,
   Wordpresslogo, FeatureStroked, ValuesStroked
-} from "../../components/shared/Svg";
+} from "../../../components/shared/Svg";
 import Image from "next/image";
-import {Feedback, Section} from "../../components/shared";
-import {Layout} from "../layouts";
+import {Feedback, Section} from "../../../components/shared";
+import {Layout} from "../../layouts";
 import Box from "@material-ui/core/Box";
 
 
@@ -24,6 +24,7 @@ import { Navigation } from "swiper";
 import {Swiper, SwiperSlide} from "swiper/react";
 
 import "swiper/css";
+import Head from "next/head";
 
 const useStyles = makeStyles({
   height: {
@@ -815,7 +816,11 @@ const CaseOnePage = () => {
   const [activeSlide, setActiveSlide] = React.useState("");
 
   return (
-      <Layout>
+      <>
+        <Head>
+          <title>Finde dein abeteuer - Honey</title>
+        </Head>
+        <Layout>
         <section className={cls.offer}>
           <div className={cls.offerStroked}>
             <CaseOneStroked />
@@ -1066,9 +1071,9 @@ const CaseOnePage = () => {
                       }}
                       onBeforeInit={
                         (swiper) => {
-                          swiper.params.navigation.prevEl = navigationPrevRef.current;
-                          swiper.params.navigation.nextEl = navigationNextRef.current;
                           setTimeout(() => {
+                            swiper.params.navigation.prevEl = navigationPrevRef.current;
+                            swiper.params.navigation.nextEl = navigationNextRef.current;
                             setSlidesLength(swiper.slides.length);
                             setActiveSlide(swiper.activeIndex + 1);
                           }, 0)
@@ -1267,6 +1272,7 @@ const CaseOnePage = () => {
         </Section>
         <Feedback title="Like what you saw?" backgroundDark={true}/>
       </Layout>
+      </>
   )
 }
 

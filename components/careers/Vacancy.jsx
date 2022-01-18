@@ -3,8 +3,9 @@ import {Container, Grid, makeStyles} from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import React from "react";
+import React, {useState} from "react";
 import theme from "../../src/assets/theme";
+import {Modal} from "./Modal";
 
 const useStyles = makeStyles({
   item: {
@@ -43,6 +44,7 @@ const useStyles = makeStyles({
 
 export const Vacancy = () => {
   const cls = useStyles();
+  const [isOpen, setIsOpen] = useState(false);
   return (
       <Section>
         <Container>
@@ -69,6 +71,7 @@ export const Vacancy = () => {
                   <Button
                       variant='contained'
                       color='primary'
+                      onClick={() => setIsOpen(true)}
                   >
                     Send CV
                   </Button>
@@ -106,6 +109,7 @@ export const Vacancy = () => {
                   <Button
                       variant='contained'
                       color='primary'
+                      onClick={() => setIsOpen(true)}
                   >
                     Send CV
                   </Button>
@@ -121,6 +125,7 @@ export const Vacancy = () => {
             </Grid>
           </div>
         </Container>
+        <Modal isOpen={isOpen} handleClose={() => setIsOpen(false)}/>
       </Section>
   )
 }

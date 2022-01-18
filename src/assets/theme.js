@@ -114,8 +114,13 @@ const theme = createTheme({
             },
         },
         MuiCircularProgress: {
-            colorSecondary: {
-                color: '#5398F8',
+            colorPrimary: {
+                color: '#fff',
+            },
+        },
+        MuiSnackbarContent: {
+            root: {
+                minWidth: 'unset !important',
             },
         },
         MuiContainer: {

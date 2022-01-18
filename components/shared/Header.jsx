@@ -226,6 +226,9 @@ const useStyles = makeStyles({
       bottom: '-8px',
     }
   },
+  cursorDefault: {
+    cursor: 'default',
+  }
 })
 
 export const Header = () => {
@@ -254,7 +257,7 @@ export const Header = () => {
               <nav className={cls.nav}>
                 <span className={cls.navLinkWrapper}>
                   <div>
-                    <span className={cls.navLink}>
+                    <span className={cx(cls.navLink, cls.cursorDefault)}>
                       <span>About us</span>
                       <svg className={cls.arr} width="10" height="5" viewBox="0 0 10 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M0 0L5 5L10 0H0Z" fill="#2A2A2A"/>
@@ -284,12 +287,12 @@ export const Header = () => {
                     </span>
                   </span>
                 </span>
-                    <span className={cls.navLinkWrapper}>
+                <span className={cls.navLinkWrapper}>
                   <Link href={'/cases'}>
                     <a className={cls.navLink}>Our cases</a>
                   </Link>
                 </span>
-                    <span className={cls.navLinkWrapper}>
+                <span className={cls.navLinkWrapper}>
                   <Link href={'/contacts'}>
                     <a className={cls.navLink}>Contact Us</a>
                   </Link>

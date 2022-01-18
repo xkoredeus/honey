@@ -194,7 +194,7 @@ export const WorkList = () => {
                   </Typography>
                 </Box>
                 <Link
-                    href={'/finde-dein-abenteuer'}
+                    href={'/cases/finde-dein-abenteuer'}
                 >
                   <a>
                     <Button
@@ -325,7 +325,7 @@ export const WorkList = () => {
                   </Typography>
                 </Box>
                 <Link
-                    href={'/finde-dein-abenteuer'}
+                    href={'/cases/finde-dein-abenteuer'}
                 >
                   <a>
                     <Button

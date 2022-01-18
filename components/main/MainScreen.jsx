@@ -267,8 +267,6 @@ export const MainScreen = () => {
                     speed={1500}
                     fadeEffect={{ 'crossFade': true }}
                     pagination={{ clickable: true }}
-                    onSwiper={(swiper) => console.log(swiper)}
-                    onSlideChange={() => console.log('slide change')}
                     autoplay={{
                       'delay': 4500,
                       'disableOnInteraction': false,

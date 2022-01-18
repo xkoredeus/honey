@@ -8,9 +8,8 @@ const useStyles = makeStyles({
   }
 })
 
-export const Layout = ({ children }) => {
+export const Layout = ({ children, footerRed=true }) => {
   const cls = useStyles();
-  const footerRed = {children};
   return (
       <>
         <Header />

@@ -1,14 +1,15 @@
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
-import {MailIcon, PhoneIcon} from "./Svg";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+import React, {useState} from "react";
+
+import {makeStyles, Container, Grid, Typography, Box, TextField, Button, CircularProgress} from "@material-ui/core";
+
+
 import {Section} from "./Section";
-import React from "react";
-import {makeStyles} from "@material-ui/core";
+import {MailIcon, PhoneIcon} from "./Svg";
 import theme from "../../src/assets/theme";
+
+import { useForm } from "react-hook-form";
+import Snackbar from "@material-ui/core/Snackbar";
+import axios from "axios";
 
 const useStyles = makeStyles({
   feedbackSubtitle: {
@@ -121,6 +122,11 @@ const useStyles = makeStyles({
     '&:hover': {
       color: '#aaa',
     }
+  },
+  progress: {
+    width: '15px !important',
+    height: '15px !important',
+    marginLeft: 8,
   }
 })
 
@@ -129,6 +135,50 @@ export const Feedback = ({backgroundDark, showCheckboxes = false, title = "Inter
   const inputProps = !backgroundDark && {
         color: "secondary",
     };
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmited, setIsSubmited] = useState(false);
+  const { register, handleSubmit, reset } = useForm();
+  const onSubmit = data => {
+    const preparedData = {
+      ...(data?.services && {
+        services: data.services
+      }),
+      ...(data?.budget && {
+        budget: data.budget
+      }),
+      ...(data?.name && {
+        name: data.name
+      }),
+      ...(data?.phone && {
+        phone: data.phone
+      }),
+      ...(data?.email && {
+        email: data.email
+      }),
+      ...(data?.company && {
+        company: data.company
+      }),
+      ...(data?.details && {
+        details: data.details
+      }),
+      source: "honeydatingsolutions",
+    }
+
+    setIsLoading(true);
+    axios
+      .post('https://f5vvtbgooh.execute-api.us-east-1.amazonaws.com/prod/moewe-contactform', preparedData)
+      .then(() => {
+        setTimeout(() => {
+          setIsSubmited(true);
+          reset();
+        }, 700)
+      })
+      .finally(() => {
+        setTimeout(() => setIsLoading(false), 700)
+      })
+  };
+
   return (
       <Section classes={`${cls.root} ${backgroundDark ? cls.rootDark : ""}`}>
         <Container>
@@ -161,7 +211,7 @@ export const Feedback = ({backgroundDark, showCheckboxes = false, title = "Inter
             </Grid>
             <Grid item xs={false} xl={3} />
             <Grid item lg={6}>
-              <form>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container spacing={4}>
                   {showCheckboxes ? (
                       <>
@@ -171,15 +221,30 @@ export const Feedback = ({backgroundDark, showCheckboxes = false, title = "Inter
                           </div>
                           <div className={cls.feedbackRow}>
                             <label className={cls.feedbackCheckbox}>
-                              <input type="radio" name="services" value="Web App"/>
+                              <input
+                                type="radio"
+                                name="services"
+                                value="Web App"
+                                {...register("services")}
+                              />
                               <span className={cls.feedbackCheckboxIn}>Web app</span>
                             </label>
                             <label className={cls.feedbackCheckbox}>
-                              <input type="radio" name="services" value="Website"/>
+                              <input
+                                type="radio"
+                                name="services"
+                                value="Website"
+                                {...register("services")}
+                              />
                               <span className={cls.feedbackCheckboxIn}>Website</span>
                             </label>
                             <label className={cls.feedbackCheckbox}>
-                              <input type="radio" name="services" value="Mobile Application"/>
+                              <input
+                                type="radio"
+                                name="services"
+                                value="Mobile Application"
+                                {...register("services")}
+                              />
                               <span className={cls.feedbackCheckboxIn}>Mobile Application</span>
                             </label>
                           </div>
@@ -190,19 +255,39 @@ export const Feedback = ({backgroundDark, showCheckboxes = false, title = "Inter
                           </div>
                           <div className={cls.feedbackRow}>
                             <label className={cls.feedbackCheckbox}>
-                              <input type="radio" name="budget" value="Less than 5K"/>
+                              <input
+                                type="radio"
+                                name="budget"
+                                value="Less than 5K"
+                                {...register("budget")}
+                              />
                               <span className={cls.feedbackCheckboxIn}>Less than 5K</span>
                             </label>
                             <label className={cls.feedbackCheckbox}>
-                              <input type="radio" name="budget" value="5K - 10K"/>
+                              <input
+                                type="radio"
+                                name="budget"
+                                value="5K - 10K"
+                                {...register("budget")}
+                              />
                               <span className={cls.feedbackCheckboxIn}>5K - 10K</span>
                             </label>
                             <label className={cls.feedbackCheckbox}>
-                              <input type="radio" name="budget" value="10K - 50K"/>
+                              <input
+                                type="radio"
+                                name="budget"
+                                value="10K - 50K"
+                                {...register("budget")}
+                              />
                               <span className={cls.feedbackCheckboxIn}>10K - 50K</span>
                             </label>
                             <label className={cls.feedbackCheckbox}>
-                              <input type="radio" name="budget" value="More than 50K"/>
+                              <input
+                                type="radio"
+                                name="budget"
+                                value="More than 50K"
+                                {...register("budget")}
+                              />
                               <span className={cls.feedbackCheckboxIn}>More than 50K</span>
                             </label>
                           </div>
@@ -217,6 +302,7 @@ export const Feedback = ({backgroundDark, showCheckboxes = false, title = "Inter
                         required
                         fullWidth
                         focused
+                        {...register("name", { required: true })}
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
@@ -226,6 +312,7 @@ export const Feedback = ({backgroundDark, showCheckboxes = false, title = "Inter
                         placeholder="Enter your number"
                         fullWidth
                         focused
+                        {...register("phone", { required: false })}
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
@@ -236,6 +323,7 @@ export const Feedback = ({backgroundDark, showCheckboxes = false, title = "Inter
                         required
                         fullWidth
                         focused
+                        {...register("email", { required: true })}
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
@@ -245,6 +333,7 @@ export const Feedback = ({backgroundDark, showCheckboxes = false, title = "Inter
                         placeholder="Enter your company name"
                         fullWidth
                         focused
+                        {...register("company", { required: false })}
                     />
                   </Grid>
                   <Grid item xs={12} sm={12}>
@@ -257,6 +346,7 @@ export const Feedback = ({backgroundDark, showCheckboxes = false, title = "Inter
                         rows={6}
                         fullWidth
                         focused
+                        {...register("details", { required: true })}
                     />
                   </Grid>
                 </Grid>
@@ -264,10 +354,22 @@ export const Feedback = ({backgroundDark, showCheckboxes = false, title = "Inter
                   <Button
                       variant='contained'
                       color='primary'
+                      type='submit'
                   >
-                    Send message
+                    {!isLoading ? 'Send message' : 'Sending'}
+                    {isLoading && <CircularProgress className={cls.progress}/>}
                   </Button>
                 </Box>
+                <Snackbar
+                    autoHideDuration={3000}
+                    open={isSubmited}
+                    message="Thank you for feedback!"
+                    onClose={() => setIsSubmited(false)}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                />
               </form>
             </Grid>
           </Grid>

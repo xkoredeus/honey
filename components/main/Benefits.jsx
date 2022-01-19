@@ -250,12 +250,13 @@ export const Benefits = () => {
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
-
-  gsap.registerPlugin(ScrollTrigger);
   const [step, setStep] = useState(1);
+  const [tl, setTl] = useState(null);
+  const [anim, setAnim] = useState(null);
   const ref = useRef(null);
 
   useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
     const tl1 = gsap.timeline().to(
         ref.current.querySelector('.first-card'),
         {
@@ -318,25 +319,35 @@ export const Benefits = () => {
         },
     )
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: ref.current,
-        start: '50% 49%',
-        end: '+=2000 100px',
-        toggleActions: 'play none none reverse',
-        markers: false,
-        pin: true,
-        scrub: true,
-        anticipatePin: 1,
-      },
-    });
+    const tl = gsap.timeline();
 
+    tl.addLabel("1")
     tl.add(tl1, '+=3')
+    tl.addLabel("2")
     tl.add(tl2, '+=5')
+    tl.addLabel("3")
     tl.add(tl3, '+=7')
+    tl.addLabel("4")
     tl.add(tl4, '+=9')
+    tl.addLabel("5")
     tl.add(tl5, '+=11')
     tl.add(tl6, '+=13')
+
+    setTl(tl);
+
+    setAnim(ScrollTrigger.create({
+      trigger: ref.current,
+      start: '50% 49%',
+      end: '+=2000 100px',
+      toggleActions: 'play none none reverse',
+      markers: false,
+      pin: true,
+      scrub: true,
+      anticipatePin: 1,
+      animation: tl,
+    }));
+
+    // setAnim(tlAnimation);
   }, [])
 
 
@@ -493,19 +504,19 @@ export const Benefits = () => {
                     <div
                         className={cls.benefitsPoints}
                     >
-                      <div className={cx(cls.benefitsPoint,step === 1 ? cls.benefitsPointActive : "",'first-point')} onClick={() => setStep(1)}>
+                      <div className={cx(cls.benefitsPoint,step === 1 ? cls.benefitsPointActive : "",'first-point')} onClick={() => {setStep(1); anim.scroll(2908)}}>
                         <span>We make dating business tasks</span>
                       </div>
-                      <div className={cx(cls.benefitsPoint,step === 2 ? cls.benefitsPointActive : "",'second-point')} onClick={() => setStep(2)}>
+                      <div className={cx(cls.benefitsPoint,step === 2 ? cls.benefitsPointActive : "",'second-point')} onClick={() => {setStep(2); anim.scroll(3350)}}>
                         <span>We make apps for real dates</span>
                       </div>
-                      <div className={cx(cls.benefitsPoint,step === 3 ? cls.benefitsPointActive : "",'third-point')} onClick={() => setStep(3)}>
+                      <div className={cx(cls.benefitsPoint,step === 3 ? cls.benefitsPointActive : "",'third-point')} onClick={() => {setStep(3); anim.scroll(3700)}}>
                         <span>We make landings and templates</span>
                       </div>
-                      <div className={cx(cls.benefitsPoint,step === 4 ? cls.benefitsPointActive : "",'fourth-point')} onClick={() => setStep(4)}>
+                      <div className={cx(cls.benefitsPoint,step === 4 ? cls.benefitsPointActive : "",'fourth-point')} onClick={() => {setStep(4); anim.scroll(4000)}}>
                         <span>We made mail inboxes and domains</span>
                       </div>
-                      <div className={cx(cls.benefitsPoint,step === 5 ? cls.benefitsPointActive : "",'fifth-point')} onClick={() => setStep(5)}>
+                      <div className={cx(cls.benefitsPoint,step === 5 ? cls.benefitsPointActive : "",'fifth-point')} onClick={() => {setStep(5); anim.scroll(4700)}}>
                         <span>We know your business needs</span>
                       </div>
                     </div>

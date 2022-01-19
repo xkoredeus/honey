@@ -183,7 +183,7 @@ export const Feedback = ({backgroundDark, showCheckboxes = false, title = "Inter
       <Section classes={`${cls.root} ${backgroundDark ? cls.rootDark : ""}`}>
         <Container>
           <Grid container>
-            <Grid item lg={5} xl={3}>
+            <Grid item lg={5} xl={4}>
               <Typography variant={'h2'}>
                 {title}
               </Typography>
@@ -209,7 +209,7 @@ export const Feedback = ({backgroundDark, showCheckboxes = false, title = "Inter
                 </a>
               </Box>
             </Grid>
-            <Grid item xs={false} xl={3} />
+            <Grid item xs={false} xl={2} />
             <Grid item lg={6}>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container spacing={4}>

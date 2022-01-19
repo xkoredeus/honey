@@ -33,6 +33,27 @@ a {
     }
 }
 
+@keyframes heart {
+    0%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(0.7);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse-anim {
+    0% {
+        box-shadow: #EE979A 0 0 0 0;
+    }
+    100% {
+        box-shadow: #EE979A00 0 0 0 30px;
+    }
+}
+
 button {
     margin: 0;
     padding: 0;

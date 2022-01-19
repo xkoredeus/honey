@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useLayoutEffect, useRef, useState} from "react";
 
 import {Accordion, AccordionSummary, AccordionDetails} from '@material-ui/core';
 
@@ -82,6 +82,9 @@ const useStyles = makeStyles({
   benefitsCardList: {
     position: 'relative',
     minHeight: 500,
+    [theme.breakpoints.down('lg')]: {
+      minHeight: 430,
+    },
   },
   benefitsCardWrapper: {
     paddingLeft: '5rem',
@@ -101,6 +104,8 @@ const useStyles = makeStyles({
     padding: '3.75rem',
     visibility: 'hidden',
     opacity: 0,
+    transition: '.3s all ease',
+    transform: 'scale(.8) translateY(10px) !important',
     [theme.breakpoints.down(1600)]: {
       padding: '2.5rem',
     },
@@ -111,6 +116,8 @@ const useStyles = makeStyles({
   benefitsCardActive: {
     visibility: 'visible',
     opacity: 1,
+    transform: 'scale(1) translateY(0) !important',
+
   },
   benefitsCardDescription: {
     color: '#767676',
@@ -245,31 +252,91 @@ export const Benefits = () => {
   };
 
   gsap.registerPlugin(ScrollTrigger);
-  // const [step, setStep] = useState(1);
+  const [step, setStep] = useState(1);
   const ref = useRef(null);
-  const tween = useRef(null);
 
-  useEffect(() => {
-    const tl1 = gsap.timeline().to(ref.current.querySelector('.first-card'), {opacity: 0, visibility: 'hidden'});
-    const tl2 = gsap.timeline().to(ref.current.querySelector('.second-card'), {opacity: 1, visibility: 'visible'});
-    // const tl2 = gsap.timeline().call(setStep( 2), [], '+=5');
+  useLayoutEffect(() => {
+    const tl1 = gsap.timeline().to(
+        ref.current.querySelector('.first-card'),
+        {
+          x: 0,
+          onStart: setStep,
+          onStartParams: [1],
+          onReverseComplete: setStep,
+          onReverseCompleteParams: [1],
+        },
+    )
+
+    const tl2 = gsap.timeline().to(
+        ref.current.querySelector('.second-card'),
+        {
+          x: 0,
+          onStart: setStep,
+          onStartParams: [2],
+          onReverseComplete: setStep,
+          onReverseCompleteParams: [2],
+        },
+    )
+
+    const tl3 = gsap.timeline().to(
+        ref.current.querySelector('.third-card'),
+        {
+          x: 0,
+          onStart: setStep,
+          onStartParams: [3],
+          onReverseComplete: setStep,
+          onReverseCompleteParams: [3],
+        },
+    )
+
+    const tl4 = gsap.timeline().to(
+        ref.current.querySelector('.fourth-card'),
+        {
+          x: 0,
+          onStart: setStep,
+          onStartParams: [4],
+          onReverseComplete: setStep,
+          onReverseCompleteParams: [4],
+        },
+    )
+
+    const tl5 = gsap.timeline().to(
+        ref.current.querySelector('.fifth-card'),
+        {
+          x: 0,
+          onStart: setStep,
+          onStartParams: [5],
+          onReverseComplete: setStep,
+          onReverseCompleteParams: [5],
+        },
+    )
+
+    const tl6 = gsap.timeline().to(
+        ref.current.querySelector('.fifth-card'),
+        {
+          x: 0,
+        },
+    )
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: ref.current,
-        start: "top top",
-        end: "bottom center",
+        start: '50% 49%',
+        end: '+=2000 100px',
         toggleActions: 'play none none reverse',
-        markers: true,
+        markers: false,
         pin: true,
+        scrub: true,
+        anticipatePin: 1,
       },
     });
 
-    tl.add(tl1, '+=2')
-    tl.add(tl2, '+=2.5')
-    // tl.add(tl2, '+=5')
-
-    // tl.add(gsap.delayedCall(0, setStep, 2), '+=15')
-    // tl.fromTo(setStep, 1, 2);
+    tl.add(tl1, '+=3')
+    tl.add(tl2, '+=5')
+    tl.add(tl3, '+=7')
+    tl.add(tl4, '+=9')
+    tl.add(tl5, '+=11')
+    tl.add(tl6, '+=13')
   }, [])
 
 
@@ -307,7 +374,7 @@ export const Benefits = () => {
                 <Grid container className={cls.container}>
                   <Grid item xs={12} sm={7} lg={7}>
                     <div className={cls.benefitsCardList}>
-                      <div className={cx(cls.benefitsCard,cls.benefitsCardActive, 'first-card')}>
+                      <div className={cx(cls.benefitsCard, step === 1 ? cls.benefitsCardActive : "", 'first-card')}>
                         <Typography variant={'h4'}>
                           We make dating business tasks
                         </Typography>
@@ -329,9 +396,9 @@ export const Benefits = () => {
                           </a>
                         </Link>
                       </div>
-                      <div className={cx(cls.benefitsCard, 'second-card')}>
+                      <div className={cx(cls.benefitsCard, step === 2 ? cls.benefitsCardActive : "", 'second-card')}>
                         <Typography variant={'h4'}>
-                          We make dating business tasks
+                          We make apps for real dates
                         </Typography>
                         <Box sx={{mb: '1.8rem'}}>
                           <Typography className={cls.benefitsCardDescription}>
@@ -351,9 +418,9 @@ export const Benefits = () => {
                           </a>
                         </Link>
                       </div>
-                      <div className={cx(cls.benefitsCard,'third-card')}>
+                      <div className={cx(cls.benefitsCard, step === 3 ? cls.benefitsCardActive : "",'third-card')}>
                         <Typography variant={'h4'}>
-                          We make dating business tasks
+                          We make landings and templates
                         </Typography>
                         <Box sx={{mb: '1.8rem'}}>
                           <Typography className={cls.benefitsCardDescription}>
@@ -373,9 +440,9 @@ export const Benefits = () => {
                           </a>
                         </Link>
                       </div>
-                      <div className={cx(cls.benefitsCard, 'fourth-card')}>
+                      <div className={cx(cls.benefitsCard, step === 4 ? cls.benefitsCardActive : "", 'fourth-card')}>
                         <Typography variant={'h4'}>
-                          We make dating business tasks
+                          We made mail inboxes and domains
                         </Typography>
                         <Box sx={{mb: '1.8rem'}}>
                           <Typography className={cls.benefitsCardDescription}>
@@ -397,9 +464,9 @@ export const Benefits = () => {
                           </a>
                         </Link>
                       </div>
-                      <div className={cx(cls.benefitsCard, 'fifth-card')}>
+                      <div className={cx(cls.benefitsCard, step === 5 ? cls.benefitsCardActive : "", 'fifth-card')}>
                         <Typography variant={'h4'}>
-                          We make dating business tasks
+                          We know your business needs
                         </Typography>
                         <Box sx={{mb: '1.8rem'}}>
                           <Typography className={cls.benefitsCardDescription}>
@@ -426,19 +493,19 @@ export const Benefits = () => {
                     <div
                         className={cls.benefitsPoints}
                     >
-                      <div className={cx(cls.benefitsPoint,cls.benefitsPointActive,'first-point')}>
+                      <div className={cx(cls.benefitsPoint,step === 1 ? cls.benefitsPointActive : "",'first-point')} onClick={() => setStep(1)}>
                         <span>We make dating business tasks</span>
                       </div>
-                      <div className={cx(cls.benefitsPoint,'second-point')}>
+                      <div className={cx(cls.benefitsPoint,step === 2 ? cls.benefitsPointActive : "",'second-point')} onClick={() => setStep(2)}>
                         <span>We make apps for real dates</span>
                       </div>
-                      <div className={cx(cls.benefitsPoint,'third-point')}>
+                      <div className={cx(cls.benefitsPoint,step === 3 ? cls.benefitsPointActive : "",'third-point')} onClick={() => setStep(3)}>
                         <span>We make landings and templates</span>
                       </div>
-                      <div className={cx(cls.benefitsPoint,'fourth-point')}>
+                      <div className={cx(cls.benefitsPoint,step === 4 ? cls.benefitsPointActive : "",'fourth-point')} onClick={() => setStep(4)}>
                         <span>We made mail inboxes and domains</span>
                       </div>
-                      <div className={cx(cls.benefitsPoint,'fifth-point')}>
+                      <div className={cx(cls.benefitsPoint,step === 5 ? cls.benefitsPointActive : "",'fifth-point')} onClick={() => setStep(5)}>
                         <span>We know your business needs</span>
                       </div>
                     </div>

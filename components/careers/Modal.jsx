@@ -37,7 +37,7 @@ export const Modal = ({isOpen, handleClose}) => {
   const cls = useStyles();
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmited, setIsSubmited] = useState(false);
-  const [selectedFile, setSelectedFile] = React.useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const handleCapture = ({ target }) => {
     setSelectedFile(target.files[0]);
@@ -59,18 +59,19 @@ export const Modal = ({isOpen, handleClose}) => {
 
     setIsLoading(true);
     axios
-        .post('https://f5vvtbgooh.execute-api.us-east-1.amazonaws.com/prod/moewe-contactformAAA', preparedData)
+        .post('https://f5vvtbgooh.execute-api.us-east-1.amazonaws.com/prod/moewe-contactform', preparedData)
         .then(() => {
           setTimeout(() => {
             setIsSubmited(true);
             reset();
+            setSelectedFile(null)
+            setIsLoading(false)
           }, 700)
         })
         .finally(() => {
           setTimeout(() => {
-            setIsLoading(false)
             handleClose();
-          }, 700)
+          }, 3000)
         })
   };
   return (

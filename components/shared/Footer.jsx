@@ -66,6 +66,11 @@ const useStyles = makeStyles({
     alignItems: 'flex-end',
     color: '#fff',
     transform: 'scale(0.9)',
+    transition: '.3s all ease',
+
+    '&:hover': {
+      opacity: '.8',
+    },
 
     [theme.breakpoints.down('md')]: {
       justifyContent: 'flex-start',

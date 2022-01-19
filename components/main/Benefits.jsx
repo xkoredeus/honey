@@ -346,11 +346,13 @@ export const Benefits = () => {
       anticipatePin: 1,
       animation: tl,
     }));
-
-    // setAnim(tlAnimation);
   }, [])
 
-
+  const callbackClick = (progress, animation) => {
+    return (
+        animation.scroll(animation.start + progress * (animation.end - animation.start))
+    )
+  }
 
   return (
       <section className={cls.benefits} ref={ref}>
@@ -504,19 +506,19 @@ export const Benefits = () => {
                     <div
                         className={cls.benefitsPoints}
                     >
-                      <div className={cx(cls.benefitsPoint,step === 1 ? cls.benefitsPointActive : "",'first-point')} onClick={() => {setStep(1); anim.scroll(2908)}}>
+                      <div className={cx(cls.benefitsPoint,step === 1 ? cls.benefitsPointActive : "",'first-point')} onClick={() => {setStep(1); callbackClick(0, anim)}}>
                         <span>We make dating business tasks</span>
                       </div>
-                      <div className={cx(cls.benefitsPoint,step === 2 ? cls.benefitsPointActive : "",'second-point')} onClick={() => {setStep(2); anim.scroll(3350)}}>
+                      <div className={cx(cls.benefitsPoint,step === 2 ? cls.benefitsPointActive : "",'second-point')} onClick={() => {setStep(2); callbackClick(0.2, anim)}}>
                         <span>We make apps for real dates</span>
                       </div>
-                      <div className={cx(cls.benefitsPoint,step === 3 ? cls.benefitsPointActive : "",'third-point')} onClick={() => {setStep(3); anim.scroll(3700)}}>
+                      <div className={cx(cls.benefitsPoint,step === 3 ? cls.benefitsPointActive : "",'third-point')} onClick={() => {setStep(3); callbackClick(0.4, anim)}}>
                         <span>We make landings and templates</span>
                       </div>
-                      <div className={cx(cls.benefitsPoint,step === 4 ? cls.benefitsPointActive : "",'fourth-point')} onClick={() => {setStep(4); anim.scroll(4000)}}>
+                      <div className={cx(cls.benefitsPoint,step === 4 ? cls.benefitsPointActive : "",'fourth-point')} onClick={() => {setStep(4); callbackClick(0.6, anim)}}>
                         <span>We made mail inboxes and domains</span>
                       </div>
-                      <div className={cx(cls.benefitsPoint,step === 5 ? cls.benefitsPointActive : "",'fifth-point')} onClick={() => {setStep(5); anim.scroll(4700)}}>
+                      <div className={cx(cls.benefitsPoint,step === 5 ? cls.benefitsPointActive : "",'fifth-point')} onClick={() => {setStep(5); callbackClick(0.8, anim)}}>
                         <span>We know your business needs</span>
                       </div>
                     </div>

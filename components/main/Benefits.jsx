@@ -355,9 +355,9 @@ export const Benefits = () => {
   }
 
   return (
-      <section className={cls.benefits} ref={ref}>
+    <section className={cls.benefits}>
+      <div className={cls.desktop} ref={ref}>
         <Container>
-          {/* desktop version */}
           <Grid container className={cls.desktop}>
             <Grid item md={false} lg={3}>
               <Section classes={cls.benefitsTitleWrapper} small>
@@ -527,8 +527,11 @@ export const Benefits = () => {
               </Section>
             </Grid>
           </Grid>
-          {/* mobile version */}
-          <Section small classes={cls.mobile}>
+        </Container>
+      </div>
+      <div className={cls.mobile}>
+        <Section small classes={cls.benefits}>
+          <Container>
             <div className={cls.mobileTitle}>
               <Typography variant={'h2'}>
                 What We Do
@@ -666,8 +669,9 @@ export const Benefits = () => {
                 </AccordionDetails>
               </Accordion>
             </div>
-          </Section>
-        </Container>
-      </section>
+          </Container>
+        </Section>
+      </div>
+    </section>
   )
 }
